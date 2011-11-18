@@ -6,9 +6,9 @@ threadsafe: true
 
 libraries:
 - name: jinja2
-  version: "2.6"
+  version: 2.6
 - name: markupsafe
-  version: "latest"
+  version: latest
 
 handlers:
 - url: /favicon.ico
