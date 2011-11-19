@@ -15,5 +15,11 @@ class VoteHandler(BaseHandler):
       raise HTTPBadRequest("Couldn't find candidate with key '%s'." %
                            candidate_key)
     election = candidate.parent()
-    vote = Vote(parent=candidate, voter=voter, election=election.key())
-    vote.put()
+    query = Vote.all()
+    query.filter("voter =", voter)
+    query.filter("election =", str(election.key()))
+    if query.get() is None:
+      vote = Vote(parent=candidate, voter=voter, election=str(election.key()))
+      vote.put()
+    else:
+      raise HTTPBadRequest("You've already voted in this election.")
