@@ -13,4 +13,5 @@ class Candidate(db.Model):
 
 class Vote(db.Model):
   voter = db.UserProperty(required=True)
+  election = db.Key()
   vote_time = db.DateTimeProperty(auto_now_add=True)
