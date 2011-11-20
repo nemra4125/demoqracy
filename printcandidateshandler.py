@@ -1,12 +1,6 @@
-import datetime
 from basehandler import BaseHandler
-from google.appengine.api import users
-from model import Election
-from model import Candidate
-from utils import ProcessParams
-from webob.exc import HTTPUnauthorized
+from model import Candidate, Election
 from webapp2_extras.appengine.users import login_required
-from google.appengine.ext import db
 
 class PrintCandidatesHandler(BaseHandler):
   @login_required

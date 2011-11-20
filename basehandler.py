@@ -1,6 +1,6 @@
+from webapp2_extras import jinja2
 import traceback
 import webapp2
-from webapp2_extras import jinja2
 
 class BaseHandler(webapp2.RequestHandler):
   @webapp2.cached_property

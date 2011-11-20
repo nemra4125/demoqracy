@@ -1,10 +1,9 @@
-import datetime
 from basehandler import BaseHandler
 from google.appengine.api import users
-from model import Election
-from model import Candidate
+from model import Candidate, Election
 from utils import ProcessParams
 from webob.exc import HTTPUnauthorized
+import datetime
 
 class CreateElectionHandler(BaseHandler):
   def post(self):

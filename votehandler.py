@@ -1,8 +1,8 @@
 from basehandler import BaseHandler
 from google.appengine.api import users
 from model import Vote, Candidate, Election
-from webob.exc import HTTPUnauthorized, HTTPBadRequest
 from webapp2_extras.appengine.users import login_required
+from webob.exc import HTTPUnauthorized, HTTPBadRequest
 
 class VoteHandler(BaseHandler):
   @login_required

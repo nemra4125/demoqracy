@@ -1,8 +1,8 @@
-import webapp2
-from indexhandler import IndexHandler
 from createelectionhandler import CreateElectionHandler
-from votehandler import VoteHandler
+from indexhandler import IndexHandler
 from printcandidateshandler import PrintCandidatesHandler
+from votehandler import VoteHandler
+import webapp2
 
 application = webapp2.WSGIApplication([
     ('/', IndexHandler),
