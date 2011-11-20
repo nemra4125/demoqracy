@@ -7,7 +7,7 @@ from utils import ProcessParams
 from webob.exc import HTTPUnauthorized
 
 class CreateElectionHandler(BaseHandler):
-  def get(self):
+  def post(self):
     if users.get_current_user() is None:
       raise HTTPUnauthorized("You must be logged in to create a new election.")
     params = ProcessParams(request=self.request,
