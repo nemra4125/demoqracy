@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block page_title %}Candidates for Election {{ title }}{% endblock %}
+
+{% block content %}
+  {% for candidate in candidates %}
+    <p>{{ candidate.name }} has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
+  {% endfor %}
+{% endblock content %}
