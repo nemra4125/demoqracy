@@ -8,7 +8,7 @@ import datetime
 class CreateElectionHandler(BaseHandler):
   
   def get(self):
-    self.render_template("create.html")
+    self.render_template("create.html", needs_jquery=True)
   
   def post(self):
     if users.get_current_user() is None:
@@ -22,6 +22,6 @@ class CreateElectionHandler(BaseHandler):
     if "end" in params:
       election.end = datetime.datetime.fromtimestamp(params["end"])
     election.put()
-    for name in params["candidates"].split(","):
+    for name in params["candidates"].split("||"):
       candidate = Candidate(parent=election, name=name)
       candidate.put()

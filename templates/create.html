@@ -1,8 +1,11 @@
 {% extends "split_page.html" %}
+
+{% block javascript_head %}<script src="/static/javascript/create.js" type="text/javascript"></script>{% endblock javascript_head %}
+
 {% block left %}
 <h3>Create new election</h3>
 
-<form action="/elections/create" style="display:inline">
+<form method="post" style="display:inline">
 <ul class="undecorated_stack">
   <li>
     Election Title <span class="subtle_helper_text">(i.e. Ogdenville Pumpkin Carving Contest)</span>
@@ -22,13 +25,13 @@
     Candidates <span class="subtle_helper_text">(be descriptive)</span>
   </li>
   <li>
-    <input type="text" name="candidate_1" maxlength="128" class="wide" />
+    <input type="text" maxlength="128" class="candidate wide" />
   </li>
   <li>
-    <input type="text" name="candidate_2" maxlength="128" class="wide" />
+    <input type="text" maxlength="128" class="candidate wide" />
   </li>
   <li>
-    <input type="text" name="candidate_3" maxlength="128" class="wide" /> <img src="/static/images/icons/delete.png" class="flanker_icon" title="Remove this candidate" />
+    <input type="text" maxlength="128" class="candidate wide" /> <img src="/static/images/icons/delete.png" class="flanker_icon" title="Remove this candidate" />
   </li>
   <li>
     <img src="/static/images/icons/delete.png" class="flanker_icon" /> <a href="#">Add another</a>     
