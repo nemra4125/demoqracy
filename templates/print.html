@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}Candidates for Election {{ title }}{% endblock %}
+
+{% block styles_head %}<link rel="stylesheet" type="text/css" href="/static/styles/print.css">{% endblock %}
+
+{% block content %}
+  {% for candidate in candidates %}
+    <div class="candidate">
+      <p class="name">{{ candidate.name }}</p>
+      <img class="qrcode" src="//chart.googleapis.com/chart?chs=500x500&cht=qr&chl={{ candidate.url }}">
+    </div>
+  {% endfor %}
+{% endblock content %}
