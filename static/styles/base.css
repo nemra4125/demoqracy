@@ -45,13 +45,13 @@ body {
   color: #313131;
 }
 
-#tr_links a {
+a {
   text-decoration: underline;
   font-family: verdana, sans-serif;
   color: #b09d8d;
 }
 
-#tr_links a:hover {
+a:hover {
   text-decoration: none;
 }
   
@@ -142,10 +142,47 @@ span.button a:hover {
   text-decoration: none;
 }
 
-.triangle{
-	display: block;
-	border: 8px solid transparent;
-	border-left: 16px solid red;
-	overflow: hidden;
-	position: absolute;
+.subtle_helper_text {
+  color: #aaaaaa; 
+}
+
+.undecorated_stack {
+  list-style: none; 
+}
+
+ul.undecorated_stack li {
+  padding: 6px 0px 6px 0px;
+}
+
+#date_range_breaker {
+  width: 75px;
+  display: inline-block;
+}
+
+input[type="text"] {
+  border: 1px solid #b09d8d;
+  padding: 6px 6px 6px 6px;
+  color: #313131;
+  margin: 0px;
+}
+
+input[type="text"].wide {
+  width: 400px;
+}
+
+input[type="text"].narrow {
+  width: 150px;
+}
+
+img.flanker_icon {
+  top: 3px;
+  position: relative;
+}
+
+ol.text {
+  margin-left: 20px;
+}
+
+ol.text li {
+  padding: 6px 0px 6px 0px;
 }
