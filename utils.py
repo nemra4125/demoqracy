@@ -5,7 +5,7 @@ def ProcessParams(request, optional_params, required_params):
 
   for required_param in required_params:
     value = request.get(required_param, None)
-    if value is not None:
+    if value not in (None, ""):
       params[required_param] = value
     else:
       raise HTTPBadRequest("Required parameter '%s' is missing." %
@@ -13,7 +13,7 @@ def ProcessParams(request, optional_params, required_params):
 
   for optional_param in optional_params:
     value = request.get(optional_param, None)
-    if value is not None:
+    if value not in (None, ""):
       params[optional_param] = value
 
   return params
