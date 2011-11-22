@@ -6,9 +6,19 @@ class Election(db.Model):
   start = db.DateTimeProperty()
   end = db.DateTimeProperty()
 
+  def GetCandidates(self):
+    query = Candidate.all()
+    query.ancestor(self)
+    return [candidate for candidate in query]
+
 
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
+
+  def GetVoteCount(self):
+    query = Vote.all()
+    query.ancestor(self)
+    return query.count()
 
 
 class Vote(db.Model):
