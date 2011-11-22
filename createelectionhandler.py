@@ -6,6 +6,10 @@ from webob.exc import HTTPUnauthorized
 import datetime
 
 class CreateElectionHandler(BaseHandler):
+  
+  def get(self):
+    self.render_template("create.html")
+  
   def post(self):
     if users.get_current_user() is None:
       raise HTTPUnauthorized("You must be logged in to create a new election.")
