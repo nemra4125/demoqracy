@@ -1,4 +1,5 @@
 from createelectionhandler import CreateElectionHandler
+from generatechanneltokenhandler import GenerateChannelTokenHandler
 from indexhandler import IndexHandler
 from printcandidateshandler import PrintCandidatesHandler
 from viewelectionhandler import ViewElectionHandler
@@ -10,5 +11,6 @@ application = webapp2.WSGIApplication([
     ('/elections/create', CreateElectionHandler),
     ('/elections/([^/]+)/print', PrintCandidatesHandler),
     ('/elections/([^/]+)/view', ViewElectionHandler),
+    ('/elections/([^/]+)/generate_channel_token', GenerateChannelTokenHandler),
     ('/([^/]+)/([^/]+)/vote', VoteHandler)
 ], debug=True)

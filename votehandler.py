@@ -38,7 +38,6 @@ class VoteHandler(BaseHandler):
     self.render_template("thanks.html", name=candidate.name)
 
   def HasAlreadyVoted(self, election, voter):
-    query = Vote.all()
-    query.filter("voter =", voter)
-    query.filter("election =", str(election.key()))
+    query = Vote.all().filter("election =", str(election.key())).filter(
+      "voter =", voter)
     return query.get() is not None
