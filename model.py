@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from google.appengine.ext import db
 
 class Election(db.Model):
@@ -10,6 +10,12 @@ class Election(db.Model):
   def GetCandidates(self):
     query = Candidate.all().ancestor(self)
     return [candidate for candidate in query]
+
+  def GetActiveChannelIds(self):
+    oldest_active_token = datetime.now() - timedelta(hours=2)
+    query = ChannelToken.all().ancestor(self).filter(
+      "created >", oldest_active_token)
+    return [channel_token.channel_id for channel_token in query]
 
   def IsActive(self):
     now = datetime.now()
@@ -32,3 +38,14 @@ class Vote(db.Model):
   voter = db.UserProperty(required=True)
   election = db.StringProperty()
   vote_time = db.DateTimeProperty(auto_now_add=True)
+
+
+class ChannelToken(db.Model):
+  channel_id = db.StringProperty()
+  created = db.DateTimeProperty(auto_now_add=True)
+
+  @staticmethod
+  def GetExpiredChannelTokens():
+    oldest_active_token = datetime.now() - timedelta(hours=2)
+    query = ChannelToken.all().filter("created <=", oldest_active_token)
+    return [channel_token for channel_token in query]

@@ -1,0 +1,4 @@
+cron:
+- description: Purge expired channel tokens.
+  url: /tasks/purge_tokens
+  schedule: every 2 hours
