@@ -21,22 +21,31 @@
 		  <div id="logo_container"><a href="/"><img src="/static/images/logo_big_tl.png" border="0"></img></a></div>
 		  <div id="tr_links">
 		    <ul class="flat_link_list">
-		      <li><a href="/elections/create">New Election</a></li>
+		      <li><img src="/static/images/icons/add.png" class="flanker_icon" /> <a href="/elections/create">New Election</a></li>
 		      <li>|</li>
-		      <li><a href="/elections">My Elections</a></li>
-		      <li>|</li>      
-		      <li><a href="/how-it-works">How it Works</a></li>
-		      <li>|</li>
-		      <li><a href="/terms">Terms of Use</a></li>
+		      <li><img src="/static/images/icons/tick.png" class="flanker_icon" /> <a href="/elections">My Elections</a></li>
 		    </ul>
 		  </div>
 		</div>
 		<!-- End Header -->
 		<!-- Main Content -->
-    <div id="content">
-		{% block content %}
-		{% endblock content %}
-		</div>
+        <div id="content">
+		  {% block content %}
+		  {% endblock content %}
+	    </div>
 		<!-- End Main Content -->
+        <!-- Footer -->
+          <div id="footer" align="center">
+            <ul class="flat_link_list">  
+              <li><a href="/how-it-works">How it Works</a></li>
+              <li>|</li>
+              <li><a href="/terms">Terms of Use</a></li>
+              <li>|</li>
+              <li><a href="/terms">Frequently Asked Questions</a></li>
+              <li>|</li>
+              <li>&copy; 2011 Patent Pending</li>
+            </ul>
+          </div>
+        <!-- End Footer -->
   </body>
 </html>
