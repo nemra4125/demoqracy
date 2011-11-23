@@ -54,7 +54,7 @@ a {
 a:hover {
   text-decoration: none;
 }
-  
+
 ul.flat_link_list {
 	margin: 0;
 	padding: 0;
@@ -72,6 +72,17 @@ ul.flat_link_list li {
   margin-right: auto;
   padding-top: 25px;
 }
+
+#footer {
+  width: 1000px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  clear: both;
+  margin-bottom: 15px;
+}
+
 
 #home_left {
   float: left;
@@ -125,7 +136,7 @@ h3 {
 
 .button {
   background-color: #313131;
-  padding: 6px 12px 6px 12px;
+  padding: 6px;
 }
 
 span.button a {
@@ -179,10 +190,25 @@ img.flanker_icon {
   position: relative;
 }
 
+img.candidate_remove {
+  cursor: pointer;
+}
+
 ol.text {
   margin-left: 20px;
 }
 
 ol.text li {
   padding: 6px 0px 6px 0px;
+}
+
+#create_errors {
+  background-color: #FCE9CA;
+  color: #313131;
+  width: 400px;
+  padding: 6px 12px 6px 12px;x
+}
+
+#create_errors li {
+  padding: 3px;
 }
