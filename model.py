@@ -25,6 +25,10 @@ class Election(db.Model):
       return False
     return True
 
+  def HasAlreadyVoted(self, voter):
+    query = Vote.all().ancestor(self).filter("voter =", voter)
+    return query.get() is not None
+
 
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
