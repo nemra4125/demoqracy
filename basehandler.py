@@ -23,4 +23,12 @@ class BaseHandler(webapp2.RequestHandler):
                            stacktrace=stacktrace)
 
   def render_template(self, filename, **template_args):
-    self.response.write(self.jinja2.render_template(filename, user=users.get_current_user(), **template_args))
+    user = {}
+    if users.get_current_user() is None:
+      user = {"login_url": users.create_login_url(self.request.uri)}
+    else:
+      user = {"email": users.get_current_user().email(),
+              "user_id": users.get_current_user().user_id(),
+              "nickname": users.get_current_user().nickname(),
+              "logout_url": users.create_logout_url("/")}
+    self.response.write(self.jinja2.render_template(filename, user=user, **template_args))

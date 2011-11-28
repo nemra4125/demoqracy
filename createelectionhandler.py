@@ -3,9 +3,11 @@ from google.appengine.api import users
 from model import Candidate, Election
 from utils import ProcessParams
 from webob.exc import HTTPUnauthorized
+from webapp2_extras.appengine.users import login_required
 import datetime
 
 class CreateElectionHandler(BaseHandler):
+  @login_required
   def get(self):
     self.render_template("create.html", render_form=True)
   

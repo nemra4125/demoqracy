@@ -25,10 +25,10 @@
 		      <li>|</li>
 		      <li><img src="/static/images/icons/tick.png" class="flanker_icon" /> <a href="/elections">My Elections</a></li>
               <li>|</li>
-              {% if user %}
-              <li><a href="/elections">Log Out</a></li>
+              {% if user.user_id %}
+              <li><a href="{{user.logout_url}}">Log Out</a></li>
               {% else %}
-              <li><a href="/elections">Log In</a></li>              
+              <li><a href="{{user.login_url}}">Log In</a></li>              
               {% endif %}        
 		    </ul>
 		  </div>
@@ -47,7 +47,7 @@
               <li>|</li>
               <li><a href="/terms">Terms of Use</a></li>
               <li>|</li>
-              <li><a href="/terms">Frequently Asked Questions</a></li>
+              <li><a href="/faq">Frequently Asked Questions</a></li>
               <li>|</li>
               <li>&copy; 2011 Patent Pending</li>
             </ul>
