@@ -1,9 +1,9 @@
 from basehandler import BaseHandler
-from datetime import datetime
 from google.appengine.api import users
 from model import Candidate, Election
 from utils import ProcessParams
 from webob.exc import HTTPUnauthorized
+import datetime
 
 class CreateElectionHandler(BaseHandler):
   def get(self):
@@ -13,15 +13,17 @@ class CreateElectionHandler(BaseHandler):
     if users.get_current_user() is None:
       raise HTTPUnauthorized("You must be logged in to create a new election.")
     params = ProcessParams(request=self.request,
-                           optional_params=["start", "end"],
+                           optional_params=["start_ts", "end_ts"],
                            required_params=["title", "candidates"])
     #TODO: Move this to a transaction.
     election = Election(title=params["title"], owner=users.get_current_user())
-    if "start" in params:
-      election.start = datetime.fromtimestamp(float(params["start"]))
-    if "end" in params:
-      election.end = datetime.fromtimestamp(float(params["end"]))
+    if "start_ts" in params:
+      election.start = datetime.datetime.fromtimestamp(params["start_ts"])
+    if "end_ts" in params:
+      election.end = datetime.datetime.fromtimestamp(params["end_ts"])
     election.put()
     for name in params["candidates"].split("||"):
       candidate = Candidate(parent=election, name=name)
       candidate.put()
+      
+    self.render_template("create.html", render_form=False, election_title=election.title, election_id=election.key().id())
