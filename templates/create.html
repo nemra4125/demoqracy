@@ -1,0 +1,107 @@
+{% set needs_jquery = True %}
+{% extends "split_page.html" %}
+
+{% block javascript_head %}
+  <script src="/static/javascript/create.js" type="text/javascript"></script>
+  <link type="text/css" href="/static/javascript/jquery-ui-1.8.16.custom/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" /> 
+  <script type="text/javascript" src="/static/javascript/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js"></script>  
+{% endblock javascript_head %}
+
+{% block left %}
+
+{% if election_id %}
+  <h3>Success!</h3>
+  Created new election: <a href="/elections/{{election_id}}/view">{{election_title}}.</a>
+{% endif %}
+
+{% if render_form %}
+<h3>Create new election</h3>
+<a id="form_top"></a>
+<div id="create_errors" style="display:none">
+  <ul id="create_errors_list"></ul>
+</div>
+<form method="post" style="display:inline">
+<ul id="candidate_list_form_fields" class="undecorated_stack">
+  <li>
+    Election Title <span class="subtle_helper_text">(i.e. Ogdenville Pumpkin Carving Contest)</span>
+  </li>
+  <li>
+    <input type="text" name="title" id="title_field" maxlength="128" class="wide" />
+  </li>
+  <li>
+    Date Range <span class="subtle_helper_text">(when to begin and stop accepting votes)</span>
+  </li>
+  <li>
+    <input type="text" name="start" maxlength="128" class="narrow" id="start_date_field" placeholder="Optional" />
+    <input type="hidden" name="start_ts" id="start_ts" />
+    <div align="center" id="date_range_breaker">...until...</div>
+    <input type="text" name="end" maxlength="128" class="narrow" id="end_date_field" placeholder="Optional" />
+    <input type="hidden" name="end_ts" id="end_ts" />
+  </li>
+  <li>
+    Candidates <span class="subtle_helper_text">(be descriptive)</span>
+  </li>
+  <li>
+    <input type="text" name="candidates" maxlength="128" class="candidate wide" />
+    <img src="/static/images/icons/delete.png" class="candidate_remove flanker_icon" title="Remove this candidate" />
+  </li>
+  <li>
+    <input type="text" name="candidates" maxlength="128" class="candidate wide" />
+    <img src="/static/images/icons/delete.png" class="candidate_remove flanker_icon" title="Remove this candidate" />
+  </li>
+  <li id="last_candidate_field">
+    <input type="text" name="candidates" maxlength="128" class="candidate wide" />
+    <img src="/static/images/icons/delete.png" class="candidate_remove flanker_icon" title="Remove this candidate" />
+  </li>
+  <li>
+    <img src="/static/images/icons/add.png" class="flanker_icon" /> <a href="#" id="add_new_candidate_form_row" >Add another</a>     
+  </li>
+  <li>
+    <input type="radio" name="anonymity" value="on" checked="checked" /> Keep all votes anonymous
+  </li>
+  <li>
+    <input type="radio" name="anonymity" value="off" /> Record voters' email addresses
+    <br/>
+    <span class="subtle_helper_text">Users will see a warning before submitting their vote</span>
+  </li>
+  <li>
+    <input type="checkbox" name="terms" value="true" checked="checked" /> I agree to the demoQRacy <a href="/terms">Terms of Use</a>
+  </li>
+  <li>
+    <div id="finish_create_election_button">
+      <span class="button"><a href="#">Create &gt;&gt;</a></span>
+    </div>
+  </li>
+</ul>
+</form>
+{% endif %}
+
+{% endblock left %}
+  
+{% block right %}
+  {% if election_id %}
+  <h3>Now What?</h3>
+  Visit the <a href="/elections/{{election_id}}/view">election page</a> to:
+  <ol class=text>
+    <li>
+    Print your barcodes
+    </li>
+    <li>
+    Track the results of your election
+    </li>
+  </ol>    
+  {% else %}
+  <h3>Tips</h3>
+  <ol class=text>
+    <li>
+    Use descriptive text for each candidate item. These labels will be printed alongside their corresponding barcodes.
+    </li>
+    <li>
+    Immediately after scanning your barcodes, users will be informed whether or not their username will be recorded.
+    </li>
+    <li>
+    Users can only vote once per election, but can change their votes by scanning a different barcode.
+    </li>
+  </ol>    
+  {% endif %}
+{% endblock right %}

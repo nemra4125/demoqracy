@@ -1,0 +1,16 @@
+.candidate {
+  page-break-after: always;
+}
+
+.name {
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  font-family: verdana, sans-serif;
+}
+
+.qrcode {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
