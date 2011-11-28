@@ -16,5 +16,8 @@ class ViewElectionHandler(BaseHandler):
         name=candidate.name,
         votes=candidate.GetVoteCount()
       ))
-    self.render_template("view.html", candidates=candidates,
-                         title=election.title)
+    self.render_template("view.html",
+                         candidates=candidates,
+                         title=election.title,
+                         election_id=election_id,
+                         election_is_active=election.IsActive())
