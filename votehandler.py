@@ -8,32 +8,16 @@ import simplejson
 class VoteHandler(BaseHandler):
   @login_required
   def get(self, election_id, candidate_id):
-    election = Election.get_by_id(long(election_id))
-    if election is None:
-      raise HTTPBadRequest("Couldn't find election with id '%s'." %
-                           election_id)
-    candidate = Candidate.get_by_id(long(candidate_id), parent=election)
-    if candidate is None:
-      raise HTTPBadRequest("Couldn't find candidate with id '%s' "
-                           "in election id '%s'." % (candidate_id, election_id))
-    if election.HasAlreadyVoted(users.get_current_user()):
-      raise HTTPBadRequest("You've already voted in this election.")
+    election, candidate = self.ValidateElectionAndCandidate(
+      election_id, candidate_id)
     self.render_template("vote.html", name=candidate.name)
 
   def post(self, election_id, candidate_id):
     voter = users.get_current_user()
     if voter is None:
       raise HTTPUnauthorized("You must be logged in to vote.")
-    election = Election.get_by_id(long(election_id))
-    if election is None:
-      raise HTTPBadRequest("Couldn't find election with id '%s'." %
-                           election_id)
-    candidate = Candidate.get_by_id(long(candidate_id), parent=election)
-    if candidate is None:
-      raise HTTPBadRequest("Couldn't find candidate with id '%s' "
-                           "in election id '%s'." % (candidate_id, election_id))
-    if election.HasAlreadyVoted(voter):
-      raise HTTPBadRequest("You've already voted in this election.")
+    election, candidate = self.ValidateElectionAndCandidate(
+      election_id, candidate_id, voter)
     Vote(parent=candidate, voter=voter, election=str(election.key())).put()
     self.NotifyChannels(election, candidate)
     self.render_template("thanks.html", name=candidate.name)
@@ -44,3 +28,18 @@ class VoteHandler(BaseHandler):
                                     candidate=candidate.key().id()))
     for channel_id in channel_ids:
      channel.send_messge(channel_id, message)
+
+  def ValidateElectionAndCandidate(self, election_id, candidate_id, voter=None):
+    election = Election.get_by_id(long(election_id))
+    if election is None:
+      raise HTTPBadRequest("Couldn't find election with id '%s'." %
+                           election_id)
+    candidate = Candidate.get_by_id(long(candidate_id), parent=election)
+    if candidate is None:
+      raise HTTPBadRequest("Couldn't find candidate with id '%s' "
+                           "in election id '%s'." % (candidate_id, election_id))
+    if voter is None:
+      voter = users.get_current_user()
+    if election.HasAlreadyVoted(voter):
+      raise HTTPBadRequest("You've already voted in this election.")
+    return election, candidate
