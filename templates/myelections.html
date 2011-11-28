@@ -4,6 +4,6 @@
 
 {% block content %}
   {% for election in elections %}
-    <h3>{{election.title}}</h3>
+    <h3><a href="/elections/{{ election.id }}/view">{{ election.title }}</a></h3>
   {% endfor %}
 {% endblock content %}
