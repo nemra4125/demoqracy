@@ -1,6 +1,8 @@
+from google.appengine.api import users
 from webapp2_extras import jinja2
 import traceback
 import webapp2
+
 
 class BaseHandler(webapp2.RequestHandler):
   @webapp2.cached_property
@@ -21,4 +23,4 @@ class BaseHandler(webapp2.RequestHandler):
                            stacktrace=stacktrace)
 
   def render_template(self, filename, **template_args):
-    self.response.write(self.jinja2.render_template(filename, **template_args))
+    self.response.write(self.jinja2.render_template(filename, user=users.get_current_user(), **template_args))

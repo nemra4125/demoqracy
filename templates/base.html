@@ -24,6 +24,12 @@
 		      <li><img src="/static/images/icons/add.png" class="flanker_icon" /> <a href="/elections/create">New Election</a></li>
 		      <li>|</li>
 		      <li><img src="/static/images/icons/tick.png" class="flanker_icon" /> <a href="/elections">My Elections</a></li>
+              <li>|</li>
+              {% if user %}
+              <li><a href="/elections">Log Out</a></li>
+              {% else %}
+              <li><a href="/elections">Log In</a></li>              
+              {% endif %}        
 		    </ul>
 		  </div>
 		</div>

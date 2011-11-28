@@ -3,5 +3,7 @@
 {% block page_title %}My Elections - demoQRacy{% endblock %}
 
 {% block content %}
-  
+  {% for election in elections %}
+    <h3>{{election.title}}</h3>
+  {% endfor %}
 {% endblock content %}
