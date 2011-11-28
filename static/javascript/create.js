@@ -48,22 +48,8 @@
                 window.location = "#create_errors";
                 return false;
               }
-
-              // Concatenate candidates and put them in a hidden field
-              var candidates = [];
-              $('.candidate').each(function(index, candidate) {
-                candidates.push(candidate.value);
-              });
-
-              var hiddenCandidatesInput = $
-              .sprintf(
-                  '<input type="hidden" name="candidates" id="candidates" value="%s">',
-                  candidates.join('||'));
-              $('#candidates').remove();
-              $(hiddenCandidatesInput).appendTo(form);
               
               // Convert dates to timestamps and put them in hidden fields
-              
               var hiddenStartTimestamp = $
               .sprintf(
                   '<input type="hidden" name="start_ts" id="start_ts" value="%s">',
