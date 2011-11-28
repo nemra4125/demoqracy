@@ -47,8 +47,22 @@
   {% for candidate in candidates %}
     <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
   {% endfor %}
-  <div id="charts_div">
-    <span id="pie_chart"></span>
-    <span id="bar_chart"></span>
+  <div align="center">
+    <img src="/static/images/icons/printer.png" class="flanker_icon" />
+    <a href="/elections/{{ election_id }}/print" class="big_link" target="_blank">Print Barcodes</a>
+  </div>
+  <div id="charts_div" style="margin-top: 10px">
+    <div class="box" style="width:485px; float:left">
+      <div class="box_header">Vote Percentage</div>
+      <div>
+        <span id="pie_chart"></span>
+      </div>
+    </div>
+    <div class="box" style="width:485px; float:right">
+      <div class="box_header">Total Votes</div>
+      <div>
+        <span id="bar_chart"></span>
+      </div>
+    </div>
   </div>
 {% endblock content %}
