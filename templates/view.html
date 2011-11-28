@@ -15,6 +15,6 @@
 
 {% block content %}
   {% for candidate in candidates %}
-    <p>{{ candidate.name }} has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
+    <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
   {% endfor %}
 {% endblock content %}

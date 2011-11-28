@@ -14,7 +14,8 @@ class ViewElectionHandler(BaseHandler):
     for candidate in election.GetCandidates():
       candidates.append(dict(
         name=candidate.name,
-        votes=candidate.GetVoteCount()
+        votes=candidate.GetVoteCount(),
+        id=candidate.key().id()
       ))
     self.render_template("view.html",
                          candidates=candidates,
