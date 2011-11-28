@@ -7,7 +7,7 @@ import datetime
 
 class CreateElectionHandler(BaseHandler):
   def get(self):
-    self.render_template("create.html")
+    self.render_template("create.html", render_form=True)
   
   def post(self):
     if users.get_current_user() is None:
