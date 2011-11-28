@@ -1,3 +1,4 @@
+{% set needs_jquery = True %}
 {% extends "split_page.html" %}
 
 {% block javascript_head %}
@@ -37,7 +38,7 @@
     <input type="hidden" name="end_ts" id="end_ts" />
   </li>
   <li>
-    Candidates <span class="subtle_helper_text">(minimum of two)</span>
+    Candidates <span class="subtle_helper_text">(be descriptive)</span>
   </li>
   <li>
     <input type="text" maxlength="128" class="candidate wide" />
