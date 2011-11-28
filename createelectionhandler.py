@@ -28,4 +28,7 @@ class CreateElectionHandler(BaseHandler):
       candidate = Candidate(parent=election, name=name)
       candidate.put()
       
-    self.render_template("create.html", render_form=False, election_title=election.title, election_id=election.key().id())
+    self.render_template("create.html",
+                         render_form=False,
+                         election_title=election.title,
+                         election_id=election.key().id())
