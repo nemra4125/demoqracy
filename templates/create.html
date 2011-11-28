@@ -8,13 +8,14 @@
 {% endblock javascript_head %}
 
 {% block left %}
-<h3>Create new election</h3>
 
 {% if election_id %}
-  Success! Created new election <a href="/elections/{{election_id}}/view">{{election_title}}.</a>
+  <h3>Success!</h3>
+  Created new election: <a href="/elections/{{election_id}}/view">{{election_title}}.</a>
 {% endif %}
 
 {% if render_form %}
+<h3>Create new election</h3>
 <a id="form_top"></a>
 <div id="create_errors" style="display:none">
   <ul id="create_errors_list"></ul>
@@ -78,6 +79,18 @@
 {% endblock left %}
   
 {% block right %}
+  {% if election_id %}
+  <h3>Now What?</h3>
+  Visit the <a href="/elections/{{election_id}}/view">election page</a> to:
+  <ol class=text>
+    <li>
+    Print your barcodes
+    </li>
+    <li>
+    Track the results of your election
+    </li>
+  </ol>    
+  {% else %}
   <h3>Tips</h3>
   <ol class=text>
     <li>
@@ -89,5 +102,6 @@
     <li>
     Users can only vote once per election, but can change their votes by scanning a different barcode.
     </li>
-  </ol>
+  </ol>    
+  {% endif %}
 {% endblock right %}
