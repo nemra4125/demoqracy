@@ -6,6 +6,36 @@
 {% block javascript_head %}
   <script src="/_ah/channel/jsapi" type="text/javascript"></script>
   <script src="/static/javascript/view.js" type="text/javascript"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var numTotalVotes = 0;
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Candidate');
+      data.addColumn('number', 'Votes');
+
+      {% for candidate in candidates %}
+        {% if loop.first %}
+          data.addRows({{ loop.length }});
+        {% endif %}
+        data.setValue({{ loop.index0 }}, 0, '{{ candidate.name }}');
+        data.setValue({{ loop.index0 }}, 1, {{ candidate.votes }});
+        numTotalVotes += {{ candidate.votes }};
+        {% if loop.last %}
+          if (numTotalVotes > 0) {
+            // Don't draw charts unless there is at least one vote
+            var barChart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
+            barChart.draw(data, {width: 450, height: 300, colors: ["#caeefc"]});
+
+            var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+            pieChart.draw(data, {width: 450, height: 300});
+          }
+        {% endif %}
+      {% endfor %}
+    }
+  </script>
   {% if election_is_active %}
     <script type="text/javascript">
       openChannelConnection('{{ election_id }}');
@@ -17,4 +47,8 @@
   {% for candidate in candidates %}
     <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
   {% endfor %}
+  <div id="charts_div">
+    <span id="pie_chart"></span>
+    <span id="bar_chart"></span>
+  </div>
 {% endblock content %}
