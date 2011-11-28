@@ -4,6 +4,7 @@ from model import Vote, Candidate, Election
 from webapp2_extras.appengine.users import login_required
 from webob.exc import HTTPUnauthorized, HTTPBadRequest
 import simplejson
+import utils
 
 class VoteHandler(BaseHandler):
   @login_required
@@ -13,11 +14,15 @@ class VoteHandler(BaseHandler):
     self.render_template("vote.html", name=candidate.name)
 
   def post(self, election_id, candidate_id):
-    voter = users.get_current_user()
-    if voter is None:
+    curret_user = users.get_current_user()
+    if curret_user is None:
       raise HTTPUnauthorized("You must be logged in to vote.")
     election, candidate = self.ValidateElectionAndCandidate(
-      election_id, candidate_id, voter)
+      election_id, candidate_id, curret_user)
+    if election.record_voter_email:
+      voter = curret_user.email()
+    else:
+      voter = utils.MungeEmailToId(curret_user)
     Vote(parent=candidate, voter=voter, election=str(election.key())).put()
     self.NotifyChannels(election, candidate)
     self.render_template("thanks.html", name=candidate.name)
