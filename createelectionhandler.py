@@ -6,9 +6,8 @@ from webob.exc import HTTPUnauthorized
 import datetime
 
 class CreateElectionHandler(BaseHandler):
-  
   def get(self):
-    self.render_template("create.html", needs_jquery=True, render_form=True)
+    self.render_template("create.html", render_form=True)
   
   def post(self):
     if users.get_current_user() is None:
@@ -16,6 +15,7 @@ class CreateElectionHandler(BaseHandler):
     params = ProcessParams(request=self.request,
                            optional_params=["start_ts", "end_ts"],
                            required_params=["title", "candidates"])
+    #TODO: Move this to a transaction.
     election = Election(title=params["title"], owner=users.get_current_user())
     if "start_ts" in params:
       election.start = datetime.datetime.fromtimestamp(params["start_ts"])
@@ -26,4 +26,4 @@ class CreateElectionHandler(BaseHandler):
       candidate = Candidate(parent=election, name=name)
       candidate.put()
       
-    self.render_template("create.html", needs_jquery=True, render_form=False, election_title=election.title, election_id=election.key().id())
+    self.render_template("create.html", render_form=False, election_title=election.title, election_id=election.key().id())
