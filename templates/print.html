@@ -7,7 +7,7 @@
 {% block content %}
   {% for candidate in candidates %}
     <div class="candidate">
-      <p class="name">{{ candidate.name }}</p>
+      <p class="name"><a href="{{ candidate.url }}">{{ candidate.name }}</a></p>
       <img class="qrcode" src="//chart.googleapis.com/chart?chs=500x500&cht=qr&chl={{ candidate.url }}">
     </div>
   {% endfor %}
