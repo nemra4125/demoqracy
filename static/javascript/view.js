@@ -9,6 +9,10 @@
    * Handle create election submissions
    */ 
   $(function() {
+    if (window.electionId != null) {
+      openChannelConnection(window.electionId);
+    }
+    
     $('#finish_create_election_button')
         .click(
             function() {
@@ -142,15 +146,42 @@ function openChannelConnection(electionId) {
     success: function(json) {
       var channel = new goog.appengine.Channel(json.channelToken);
       var socket = channel.open();
-      socket.onopen = function() {
-        console.log("Channel connection is open.");
-      };
       socket.onmessage = function(message) {
-        console.log(message);
+        drawChart($.parseJSON(message.data));
       };
-      socket.onerror = function() {
-        console.log('Channel connection error.')
+      socket.onerror = function(error) {
+        console.log('Channel connection error:');
+        console.dir(error);
       };
     }
   });
+}
+
+function drawChart(electionState) {
+  var numTotalVotes = 0;
+
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Candidate');
+  data.addColumn('number', 'Votes');
+  data.addRows(electionState.length);
+
+  $.each(electionState, function(index, candidate) {
+    data.setValue(index, 0, candidate.name);
+    data.setValue(index, 1, candidate.votes);
+    numTotalVotes += candidate.votes;
+  });
+
+  if (numTotalVotes > 0) {
+    var barChartSpan = document.createElement('span');
+    var pieChartSpan = document.createElement('span');
+    $('#charts').hide();
+    $('#charts').empty().append(barChartSpan).append(pieChartSpan);
+    $('#charts').fadeIn('slow');
+
+    var barChart = new google.visualization.ColumnChart(barChartSpan);
+    barChart.draw(data, { width: 450, height: 300, colors: ["#caeefc"] });
+
+    var pieChart = new google.visualization.PieChart(pieChartSpan);
+    pieChart.draw(data, { width: 450, height: 300 });
+  }
 }
