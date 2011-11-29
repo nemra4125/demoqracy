@@ -1,5 +1,4 @@
 from webob.exc import HTTPBadRequest
-import hashlib
 import simplejson
 
 def ProcessParams(request, optional_params, required_params):
@@ -27,6 +26,3 @@ def ProcessParams(request, optional_params, required_params):
 def WriteJsonResponse(handler, obj):
   handler.response.headers['Content-Type'] = 'application/json'
   handler.response.write(simplejson.dumps(obj))
-
-def MungeEmailToId(user):
-  return hashlib.md5(user.email()).hexdigest()

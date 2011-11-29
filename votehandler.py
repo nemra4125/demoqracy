@@ -14,16 +14,13 @@ class VoteHandler(BaseHandler):
     self.render_template("vote.html", name=candidate.name)
 
   def post(self, election_id, candidate_id):
-    curret_user = users.get_current_user()
-    if curret_user is None:
+    current_user = users.get_current_user()
+    if current_user is None:
       raise HTTPUnauthorized("You must be logged in to vote.")
     election, candidate = self.ValidateElectionAndCandidate(
-      election_id, candidate_id, curret_user)
-    if election.record_voter_email:
-      voter = curret_user.email()
-    else:
-      voter = utils.MungeEmailToId(curret_user)
-    Vote(parent=candidate, voter=voter, election=str(election.key())).put()
+      election_id, candidate_id, current_user)
+    voter_id = election.GenerateVoterId(current_user)
+    Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
     self.NotifyChannels(election, candidate)
     self.render_template("thanks.html", name=candidate.name)
 
