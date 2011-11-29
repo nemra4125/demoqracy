@@ -14,6 +14,7 @@ application = webapp2.WSGIApplication([
     ('/elections/create', CreateElectionHandler),
     ('/elections/([^/]+)/print', PrintCandidatesHandler),
     ('/elections/([^/]+)/view', ViewElectionHandler),
+    ('/elections/([^/]+)/generate_channel_token', GenerateChannelTokenHandler),
     ('/([^/]+)/([^/]+)/vote', VoteHandler),
     ('/elections', MyElectionsHandler),
 ], debug=True)

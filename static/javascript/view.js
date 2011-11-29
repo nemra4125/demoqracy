@@ -134,3 +134,23 @@
   });
   
 })();
+
+function openChannelConnection(electionId) {
+  $.ajax({
+    dataType: 'json',
+    url: ($.sprintf('/elections/%s/generate_channel_token', encodeURIComponent(electionId))),
+    success: function(json) {
+      var channel = new goog.appengine.Channel(json.channelToken);
+      var socket = channel.open();
+      socket.onopen = function() {
+        console.log("Channel connection is open.");
+      };
+      socket.onmessage = function(message) {
+        console.log(message);
+      };
+      socket.onerror = function() {
+        console.log('Channel connection error.')
+      };
+    }
+  });
+}
