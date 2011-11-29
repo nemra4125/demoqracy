@@ -43,6 +43,12 @@ class Election(db.Model):
     else:
       return hashlib.md5(str(self.key()) + user.user_id()).hexdigest()
 
+  def GetElectionState(self):
+    return [dict(name=candidate.name, votes=candidate.GetVoteCount(),
+                 id=candidate.key().id())
+            for candidate
+            in self.GetCandidates()]
+
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
 
