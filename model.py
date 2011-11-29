@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from google.appengine.ext import db
-import utils
+import hashlib
 
 class Election(db.Model):
   owner = db.UserProperty(required=True)
@@ -28,13 +28,15 @@ class Election(db.Model):
     return True
 
   def HasAlreadyVoted(self, voter):
-    if self.record_voter_email:
-      voter = voter.email()
-    else:
-      voter = utils.MungeEmailToId(voter)
-    query = Vote.all().ancestor(self).filter("voter =", voter)
+    voter_id = self.GenerateVoterId(voter)
+    query = Vote.all().ancestor(self).filter("voter =", voter_id)
     return query.get() is not None
 
+  def GenerateVoterId(self, user):
+    if self.record_voter_email:
+      return user.email()
+    else:
+      return hashlib.md5(str(self.key()) + user.user_id()).hexdigest()
 
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
