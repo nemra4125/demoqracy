@@ -20,8 +20,6 @@
 {% endblock javascript_head %}
 
 {% block content %}
-  {% for candidate in candidates %}
-    <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
-  {% endfor %}
+  <div><a href="/elections/{{ election_id }}/print">Generate QR Codes</a></div>
   <div id="charts"></div>
 {% endblock content %}
