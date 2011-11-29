@@ -9,8 +9,13 @@ class Election(db.Model):
   end = db.DateTimeProperty()
   record_voter_email = db.BooleanProperty(default=False)
 
+  @staticmethod
+  def GetElections(owner):
+    query = Election.all().filter("owner =", owner).order("title")
+    return [election for election in query]
+
   def GetCandidates(self):
-    query = Candidate.all().ancestor(self)
+    query = Candidate.all().ancestor(self).order("name")
     return [candidate for candidate in query]
 
   def GetActiveChannelIds(self):
