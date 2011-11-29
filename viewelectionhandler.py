@@ -10,9 +10,9 @@ class ViewElectionHandler(BaseHandler):
     election = Election.get_by_id(long(election_id))
     if election.owner != users.get_current_user():
       raise HTTPUnauthorized("You are not the owner of this election.")
-    election_state = election.GetElectionState()
+    election_state = election.GetElectionStateAsJson()
     self.render_template("view.html",
-                         candidates=election_state,
+                         election_state=election_state,
                          title=election.title,
                          election_id=election_id,
                          election_is_active=election.IsActive())

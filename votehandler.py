@@ -3,7 +3,6 @@ from google.appengine.api import channel, users
 from model import Vote, Candidate, Election
 from webapp2_extras.appengine.users import login_required
 from webob.exc import HTTPUnauthorized, HTTPBadRequest
-import simplejson
 
 class VoteHandler(BaseHandler):
   @login_required
@@ -24,8 +23,7 @@ class VoteHandler(BaseHandler):
     self.render_template("thanks.html", name=candidate.name)
 
   def NotifyChannels(self, election):
-    election_state = election.GetElectionState()
-    message = simplejson.dumps(election_state)
+    message = election.GetElectionStateAsJson()
     for channel_id in election.GetActiveChannelIds():
       channel.send_message(channel_id, message)
 
