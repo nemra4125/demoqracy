@@ -130,6 +130,7 @@ ul.flat_link_list li {
   float: left;
   width: 45%;
   min-width: 320px;
+  max-width: 450px;
   padding-right: 30px;
 }
 
@@ -137,6 +138,7 @@ ul.flat_link_list li {
   float: left;
   width: 45%;
   min-width: 320px;
+  max-width: 450px;
   dipslay: inline;
 }
 
