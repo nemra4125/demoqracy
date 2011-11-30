@@ -12,12 +12,15 @@ demoQRacy is a tool that makes offline voting easier using mobile phones.
 </div>
   
 <div id="new_election_home_button">
-  <span class="button"><a href="/elections/create">New Election &gt;&gt;</a></span>
+  <span class="button">
+    <img src="static/images/icons/add.png" class="flanker_icon" />
+    <a href="/elections/create">New Election &gt;&gt;</a>
+  </span>
 </div>
 {% endblock left %}
   
 {% block right %}
-<h3><a href="/elections">My Elections</a></h3>
+<h3>My Elections</h3>
 <ul>
 {% for election in elections %}
   <li><a href="/elections/{{ election.id }}/view">{{ election.title }}</a></li>

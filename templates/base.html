@@ -37,31 +37,38 @@
   </head>
 
   <body>
-		<div id="header">
-      <a class="no-hover-underline" href="/">
+	<div id="header">
+      
         <div id="logo">
           <div id="top-left-square" class="square">&#x25a3;</div>
           <div id="top-right-square" class="square">&#x25a3;</div>
           <div id="bottom-left-square" class="square">&#x25a3;</div>
-          <div id="demoqracy-text">demoQRacy</div>
+          <div id="demoqracy-text"><a class="no-hover-underline" href="/">demoQRacy</a></div>
         </div>
-      </a>
-		</div>
+	</div>
     
-    <ul id="header-links">
-      <li><a href="/elections/create">New Election</a></li>
-      <li><a href="/elections">My Elections</a></li>
-      <li>
-        {% if user.user_id %}
-        <a href="{{ user.logout_url }}">Log Out</a>
-        {% else %}
-        <a href="{{ user.login_url }}">Log In</a>
-        {% endif %}
-      </li>
-      <li id="plusone">
+    <div id="subheader">
+      <ul id="header-links">
+        <li>
+          <img src="/static/images/icons/add.png" class="flanker_icon" />
+          <a href="/elections/create">New Election</a></li>
+        <li>
+          <img src="/static/images/icons/tick.png" class="flanker_icon" />
+          <a href="/elections">My Elections</a></li>
+        <li>
+          {% if user.user_id %}
+          <img src="/static/images/icons/door_open.png" class="flanker_icon" />
+          <a href="{{ user.logout_url }}">Log Out</a>
+          {% else %}
+          <img src="/static/images/icons/user.png" class="flanker_icon" />
+          <a href="{{ user.login_url }}">Log In</a>
+          {% endif %}
+        </li>
+      </ul>
+      <div id="plusone_container">
         <div class="g-plusone" data-href="http://www.demoqracy.com"></div>
-      </li>
-    </ul>
+      </div>
+    </div>
 
     <div id="content">
 		  {% block content %}{% endblock content %}
