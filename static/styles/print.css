@@ -2,11 +2,16 @@
   page-break-after: always;
 }
 
-.name {
-  font-size: 48px;
+.title {
+  font-size: 5em;
   font-weight: bold;
   text-align: center;
   font-family: verdana, sans-serif;
+}
+
+.explanation {
+  font-size: 3em;
+  text-align: center;
 }
 
 .qrcode {

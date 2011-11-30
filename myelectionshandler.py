@@ -11,5 +11,5 @@ class MyElectionsHandler(BaseHandler):
       raise HTTPUnauthorized("You must be logged in to view this page.")
     elections = [dict(id=election.key().id(), title=election.title)
                  for election
-                 in Election.all().filter("owner =", users.get_current_user())]
+                 in Election.GetElections(users.get_current_user())]
     self.render_template("myelections.html", elections=elections)
