@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from google.appengine.ext import db
 import hashlib
-import simplejson
+import json
 
 class Election(db.Model):
   owner = db.UserProperty(required=True)
@@ -49,7 +49,7 @@ class Election(db.Model):
                            id=candidate.key().id())
                       for candidate
                       in self.GetCandidates()]
-    return simplejson.dumps(election_state)
+    return json.dumps(election_state)
 
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
