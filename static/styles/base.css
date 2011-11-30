@@ -268,3 +268,8 @@ ol.text li {
 .box_contents {
   padding: 13px;
 }
+
+.phone_center {
+  margin: 0px auto;
+  width: 320px;
+}

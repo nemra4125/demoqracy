@@ -1,8 +1,19 @@
-{% extends "base.html" %}
+{% extends "sparse.html" %}
 
-{% block content %}
-<p>Are you sure you want to vote for {{ name }}?</p>
-<form method="post">
-  <button type="submit">Vote!</button>
-</form>
+{% block content %}  
+    <div class="phone_center">
+      <h3>{{ title }}</h3>
+      {% if canvote %}
+      <form method="post">
+        <p>Vote for {{ name }}?</p>
+        <p>
+          <button name="submit" value="True" type="submit">Vote</button>
+          <button name="cancel_button" value="True" type="submit">Cancel</button>
+        </p>
+      </form>  
+      {% else %}
+        {{ message }}
+      {% endif %}
+    </div>
+
 {% endblock content %}
