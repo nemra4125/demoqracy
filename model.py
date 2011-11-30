@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta
 from google.appengine.ext import db
+import utils
 
 class Election(db.Model):
   owner = db.UserProperty(required=True)
   title = db.StringProperty(required=True)
   start = db.DateTimeProperty()
   end = db.DateTimeProperty()
+  record_voter_email = db.BooleanProperty(default=False)
 
   def GetCandidates(self):
     query = Candidate.all().ancestor(self)
@@ -26,6 +28,10 @@ class Election(db.Model):
     return True
 
   def HasAlreadyVoted(self, voter):
+    if self.record_voter_email:
+      voter = voter.email()
+    else:
+      voter = utils.MungeEmailToId(voter)
     query = Vote.all().ancestor(self).filter("voter =", voter)
     return query.get() is not None
 
@@ -39,7 +45,7 @@ class Candidate(db.Model):
 
 
 class Vote(db.Model):
-  voter = db.UserProperty(required=True)
+  voter = db.StringProperty(required=True)
   election = db.StringProperty()
   vote_time = db.DateTimeProperty(auto_now_add=True)
 
