@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_title %}My Elections{% endblock %}
+
+{% block content %}
+  <h3>My Elections</h3>
+  {% for election in elections %}
+  <div class="box flex_column_item">
+      <div class="box_header">
+        <a href="/elections/{{ election.id }}/view">{{ election.title }}</a>
+      </div>
+      <div class="box_contents">
+        <ol>
+          <li>Candidate A: 15 votes</li>
+          <li>Candidate B: 12 votes</li>
+          <li>Candidate C: 4 votes</li>
+        </ol>
+        <a href="/elections/{{ election.id }}/view">View Details &gt;&gt;</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}

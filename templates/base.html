@@ -1,0 +1,89 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/Product">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta itemprop="name" content="demoQRacy">
+    <meta itemprop="description" content="Offline voting, via QR codes. Create your own elections and vote now!">
+    <meta itemprop="image" content="http://www.demoqracy.com/static/images/logo.png">
+
+    <title>{% block page_title %}demoQRacy - Easy offline voting using QR codes{% endblock %}</title>
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/styles/base.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Yanone Kaffeesatz">
+    <link href='http://fonts.googleapis.com/css?family=Rammetto+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    {% block styles_head %}{% endblock %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/static/javascript/third-party/jquery.sprintf.js" type="text/javascript"></script>
+    <script src="/static/javascript/base.js" type="text/javascript"></script>
+    {% block javascript_head %}{% endblock %}
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-27402289-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+	<div id="header">
+      
+        <div id="logo">
+          <div id="top-left-square" class="square">&#x25a3;</div>
+          <div id="top-right-square" class="square">&#x25a3;</div>
+          <div id="bottom-left-square" class="square">&#x25a3;</div>
+          <div id="demoqracy-text"><a class="no-hover-underline" href="/">demoQRacy</a></div>
+        </div>
+	</div>
+    
+    <div id="subheader">
+      <ul id="header-links">
+        <li>
+          <img src="/static/images/icons/add.png" class="flanker_icon" />
+          <a href="/elections/create">New Election</a></li>
+        <li>
+          <img src="/static/images/icons/tick.png" class="flanker_icon" />
+          <a href="/elections">My Elections</a></li>
+        <li>
+          {% if user.user_id %}
+          <img src="/static/images/icons/door_open.png" class="flanker_icon" />
+          <a href="{{ user.logout_url }}">Log Out</a>
+          {% else %}
+          <img src="/static/images/icons/user.png" class="flanker_icon" />
+          <a href="{{ user.login_url }}">Log In</a>
+          {% endif %}
+        </li>
+      </ul>
+      <div id="plusone_container">
+        <div class="g-plusone" data-href="http://www.demoqracy.com"></div>
+      </div>
+    </div>
+
+    <div id="content">
+		  {% block content %}{% endblock content %}
+	  </div>
+
+    <div id="footer">
+      <ul class="flat_link_list">
+        <li><a href="/how-it-works">How it Works</a></li>
+        <li>|</li>
+        <li><a href="/terms">Terms of Use</a></li>
+        <li>|</li>
+        <li><a href="/faq">Frequently Asked Questions</a></li>
+        <li>|</li>
+        <li>&copy; 2011 Patent Pending</li>
+      </ul>
+    </div>
+  </body>
+</html>

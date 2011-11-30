@@ -1,0 +1,29 @@
+{% extends "split_page.html" %}
+
+{% block left %}
+<h3>Let them eat barcodes!</h3>
+demoQRacy is a tool that makes offline voting easier using mobile phones.
+<div class="pullout_box" id="how_it_works_home_box">
+  <ol class="big_list">
+    <li><p>Create a set of things to be voted on. Paintings, science fair projects, cookies, anything!</p></li>
+    <li><p>We make it simple to print one barcode (specifically, a QR Code) for each item in your set.</p></li>
+    <li><p>Display your new QR codes and tell people to scan them with their phones. One scan = one vote!</p></li>
+  </ol>
+</div>
+  
+<div id="new_election_home_button">
+  <span class="button">
+    <img src="static/images/icons/add.png" class="flanker_icon" />
+    <a href="/elections/create">New Election &gt;&gt;</a>
+  </span>
+</div>
+{% endblock left %}
+  
+{% block right %}
+<h3>My Elections</h3>
+<ul>
+{% for election in elections %}
+  <li><a href="/elections/{{ election.id }}/view">{{ election.title }}</a></li>
+{% endfor %}
+</ul>
+{% endblock right %}

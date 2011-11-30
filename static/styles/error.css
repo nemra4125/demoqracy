@@ -1,0 +1,16 @@
+blockquote {
+  text-align: right;
+}
+
+blockquote p {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+footer {
+  font-style: italic;
+}
+
+.message {
+  font-size: 2em;
+}
