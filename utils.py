@@ -1,5 +1,5 @@
 from webob.exc import HTTPBadRequest
-import simplejson
+import json
 
 def ProcessParams(request, optional_params, required_params):
   params = {}
@@ -22,4 +22,4 @@ def ProcessParams(request, optional_params, required_params):
 
 def WriteJsonResponse(handler, obj):
   handler.response.headers['Content-Type'] = 'application/json'
-  handler.response.write(simplejson.dumps(obj))
+  handler.response.write(json.dumps(obj))
