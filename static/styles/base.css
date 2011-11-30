@@ -2,7 +2,8 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  color: #313131;
+  font-size: 14px;
+  color: #404040;
 }
 
 #header {
@@ -13,7 +14,7 @@ body {
 
 #logo {
   font-family: 'Rammetto One', cursive;
-  margin-left: 0.4em;
+  margin-left: 30px;
   position: relative;
   height: 3.4em;
   width: 50%;
@@ -47,29 +48,46 @@ a:hover.no-hover-underline {
   position: absolute;
   left: 0.7em;
   top: 0.7em;
-  color: #404040;
+}
+
+#demoqracy-text a {
+    color: #404040;
+}
+
+#demoqracy-text a:hover {
+  text-decoration: none;
+}
+
+#subheader {
+  padding-left: 30px;
+  margin: 0;
+  background-color: #b09d8d;
+  height: 36px;
+}
+
+#plusone_container {
+  display: inline-block;
+  position: relative;
+  top: 6px;
+  left: 10px;
 }
 
 #header-links {
   list-style: none;
-  font-size: 1.5em;
   font-weight: bold;
-  padding-left: 1em;
+  display: inline-block;
+  padding: 0;
   margin: 0;
-  background-color: #b09d8d;
 }
 
 #header-links li {
   display: inline;
-  margin-right: 3em;
+  padding-right: 4px;
 }
 
 #header-links li a {
   color: #404040;
-}
-
-#plusone {
-  margin-top: 1em;
+  font-size: 12px;
 }
 
 a {
@@ -80,6 +98,8 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
 
 ul.flat_link_list {
   margin: 0;
@@ -94,29 +114,30 @@ ul.flat_link_list li {
 
 #content {
   margin-top: 2em;
-  margin-left: 2em;
+  margin-left: 30px;
 }
 
 #footer {
   clear: both;
-  width: 900px;
   padding-top: 2em;
   padding-bottom: 2em;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 30px;
+  
 }
 
 #home_left {
+  display: inline;
   float: left;
-  width: 470px;
-  border-right: 1px dashed #caeefc;
+  width: 45%;
+  min-width: 320px;
   padding-right: 30px;
 }
 
 #home_right {
   float: left;
-  width: 469px;
-  padding-left: 30px;
+  width: 45%;
+  min-width: 320px;
+  dipslay: inline;
 }
 
 h3 {
@@ -127,7 +148,7 @@ h3 {
 }
 
 .pullout_box {
-  background-color: #313131;
+  background-color: #404040;
   padding: 15px 25px 15px 15px;
   color: #caeefc;
 }
@@ -141,8 +162,8 @@ h3 {
   font-family: "Yanone Kaffeesatz", sans-serif;
   font-size: 24px;
   color: #caeefc;
-  padding-left: 30px;
-  padding-bottom: 6px;
+  margin: 0px;
+  padding: 0px 0px 6px 30px;
 }
 
 .big_list p {
@@ -157,12 +178,12 @@ h3 {
 }
 
 .button {
-  background-color: #313131;
+  background-color: #404040;
   padding: 6px;
 }
 
 #new_election_home_button {
-  margin-top: 16px;
+  margin: 16px 0px 16px 0px;
 }
 
 .subtle_helper_text {
@@ -185,7 +206,7 @@ ul.undecorated_stack li {
 input[type="text"] {
   border: 1px solid #b09d8d;
   padding: 6px 6px 6px 6px;
-  color: #313131;
+  color: #404040;
   margin: 0px;
 }
 
@@ -216,7 +237,7 @@ ol.text li {
 
 #create_errors {
   background-color: #FCE9CA;
-  color: #313131;
+  color: #404040;
   width: 400px;
   padding: 6px 12px 6px 12px;
 }
@@ -226,13 +247,24 @@ ol.text li {
 }
 
 .box {
-  border: 1px solid #313131;
+  border: 1px solid #404040;
+}
+
+.flex_column_item {
+  display: inline-block;
+  min-width: 320px;
+  margin-bottom: 16px;
+  margin-right: 16px;
 }
 
 .box_header {
   color: #ffffff;
   padding: 10px;
   margin: 3px;
-  background-color: #313131;
+  background-color: #404040;
   font-size: 18px
+}
+
+.box_contents {
+  padding: 13px;
 }
