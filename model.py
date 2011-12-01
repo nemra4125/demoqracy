@@ -9,6 +9,7 @@ class Election(db.Model):
   start = db.DateTimeProperty()
   end = db.DateTimeProperty()
   record_voter_email = db.BooleanProperty(default=False)
+  ads_enabled = db.BooleanProperty(default=True)
 
   @staticmethod
   def GetElections(owner):

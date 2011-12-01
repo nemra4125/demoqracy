@@ -12,6 +12,10 @@ class VoteHandler(BaseHandler):
     
     message = ""
     canvote = True
+    show_ads = True
+
+    if election.ads_enabled == False:
+      show_ads = False
     
     if election.HasAlreadyVoted(users.get_current_user()):
       message = "You've already voted in this election."
@@ -20,7 +24,7 @@ class VoteHandler(BaseHandler):
     
     self.render_template("vote.html", title=election.title, 
                          name=candidate.name, message=message, 
-                         canvote=canvote)
+                         canvote=canvote, show_ads=show_ads)
 
   def post(self, election_id, candidate_id):
     if self.request.get("cancel_button") == "True":
