@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}#demoQRacyFAIL{% endblock %}
+
+{% block styles_head %}<link rel="stylesheet" type="text/css" href="/static/styles/error.css">{% endblock %}
+
+{% block content %}
+<p class="message">{{ message }}</p>
+<pre>{{ stacktrace }}</pre>
+<blockquote>
+  <p>I've said it before and I'll say it again: demoqracy simply doesn't work.</p>
+  <footer>—<a href="http://www.imdb.com/title/tt0778447/quotes?qt=qt0264037">Kent Brockman</a>, more or less</footer>
+</blockquote>
+{% endblock content %}

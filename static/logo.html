@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Rammetto+One' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      #logo {
+        font-family: 'Rammetto One', cursive;
+        position: relative;
+        height: 3.4em;
+        width: 50%;
+      }
+
+      .square {
+        position: absolute;
+        color: #B09D8D;
+      }
+
+      #top-left {
+        top: 0;
+        left: 0;
+      }
+
+      #top-right {
+        top: 0;
+        right: 0.6em;
+      }
+
+      #bottom-left {
+        bottom: 0.2em;
+        left: 0;
+      }
+
+      #demoqracy {
+        position: absolute;
+        left: 0.7em;
+        top: 0.7em;
+        color: #404040;
+      }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(function() {
+        $(window).bind('resize', function() {
+          var windowWidth = $(window).width();
+          var newSize = windowWidth / 20;
+          $('#logo').css('font-size', newSize);
+        }).trigger('resize');
+      });
+    </script>
+  </head>
+  <body>
+    <div id="logo">
+      <div id="top-left" class="square">&#x25a3;</div>
+      <div id="top-right" class="square">&#x25a3;</div>
+      <div id="bottom-left" class="square">&#x25a3;</div>
+      <div id="demoqracy">demoQRacy</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "sparse.html" %}
+
+{% block content %}  
+    <div class="phone_center">
+      {% if show_ads %}
+      <!-- TODO: Replace with real AdSense code once we get an account -->
+      <img src="/static/images/fakead.gif" title="fake ad" alt="fake ad"/>
+      {% endif %}
+      <h3>{{ title }}</h3>
+      {% if canvote %}
+      <form method="post">
+        <p>Vote for {{ name }}?</p>
+        <p>
+          <button name="submit" value="True" type="submit">Vote</button>
+          <button name="cancel_button" value="True" type="submit">Cancel</button>
+        </p>
+      </form>  
+      {% else %}
+        {{ message }}
+      {% endif %}
+    </div>
+
+{% endblock content %}

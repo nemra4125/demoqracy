@@ -1,0 +1,282 @@
+@import url("normalize.css");
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #404040;
+}
+
+#header {
+  position: relative;
+  background-color: #caeefc;
+  height: 20%;
+}
+
+#logo {
+  font-family: 'Rammetto One', cursive;
+  margin-left: 30px;
+  position: relative;
+  height: 3.4em;
+  width: 50%;
+}
+
+a:hover.no-hover-underline {
+  text-decoration: none;
+}
+
+.square {
+  position: absolute;
+  color: #b09d8d;
+}
+
+#top-left-square {
+  top: 0;
+  left: 0;
+}
+
+#top-right-square {
+  top: 0;
+  right: 0.6em;
+}
+
+#bottom-left-square {
+  bottom: 0.2em;
+  left: 0;
+}
+
+#demoqracy-text {
+  position: absolute;
+  left: 0.7em;
+  top: 0.7em;
+}
+
+#demoqracy-text a {
+    color: #404040;
+}
+
+#demoqracy-text a:hover {
+  text-decoration: none;
+}
+
+#subheader {
+  padding-left: 30px;
+  margin: 0;
+  background-color: #b09d8d;
+  height: 36px;
+}
+
+#plusone_container {
+  display: inline-block;
+  position: relative;
+  top: 6px;
+  left: 10px;
+}
+
+#header-links {
+  list-style: none;
+  font-weight: bold;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+#header-links li {
+  display: inline;
+  padding-right: 4px;
+}
+
+#header-links li a {
+  color: #404040;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: #b09d8d;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+
+ul.flat_link_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.flat_link_list li {
+  display: inline;
+  padding-right: 6px;
+}
+
+#content {
+  margin-top: 2em;
+  margin-left: 30px;
+}
+
+#footer {
+  clear: both;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  margin-left: 30px;
+  
+}
+
+#home_left {
+  display: inline;
+  float: left;
+  width: 45%;
+  min-width: 320px;
+  max-width: 450px;
+  padding-right: 30px;
+}
+
+#home_right {
+  float: left;
+  width: 45%;
+  min-width: 320px;
+  max-width: 450px;
+  dipslay: inline;
+}
+
+h3 {
+  margin: 0px 0px 10px 0px;
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 42px;
+  color: #b09d8d;
+}
+
+.pullout_box {
+  background-color: #404040;
+  padding: 15px 25px 15px 15px;
+  color: #caeefc;
+}
+
+#how_it_works_home_box {
+  margin-top: 15px;
+}
+
+.big_list {
+  list-style: decimal;
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 24px;
+  color: #caeefc;
+  margin: 0px;
+  padding: 0px 0px 6px 30px;
+}
+
+.big_list p {
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.tip {
+  border-bottom: 1px dotted #caeefc;
+  cursor: help;
+}
+
+.button {
+  background-color: #404040;
+  padding: 6px;
+}
+
+#new_election_home_button {
+  margin: 16px 0px 16px 0px;
+}
+
+.subtle_helper_text {
+  color: #aaaaaa;
+}
+
+.undecorated_stack {
+  list-style: none;
+}
+
+ul.undecorated_stack li {
+  padding: 6px 0px 6px 0px;
+}
+
+#date_range_breaker {
+  width: 78px;
+  display: inline-block;
+}
+
+input[type="text"] {
+  border: 1px solid #b09d8d;
+  padding: 6px 6px 6px 6px;
+  color: #404040;
+  margin: 0px;
+}
+
+input[type="text"].wide {
+  width: 400px;
+}
+
+input[type="text"].narrow {
+  width: 150px;
+}
+
+img.flanker_icon {
+  top: 3px;
+  position: relative;
+}
+
+img.candidate_remove {
+  cursor: pointer;
+}
+
+ol.text {
+  margin-left: 20px;
+}
+
+ol.text li {
+  padding: 6px 0px 6px 0px;
+}
+
+#create_errors {
+  background-color: #FCE9CA;
+  color: #404040;
+  width: 400px;
+  padding: 6px 12px 6px 12px;
+}
+
+#create_errors li {
+  padding: 3px;
+}
+
+.box {
+  border: 1px solid #404040;
+}
+
+.flex_column_item {
+  display: inline-block;
+  min-width: 320px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+}
+
+.box_header {
+  color: #ffffff;
+  padding: 10px;
+  margin: 3px;
+  background-color: #404040;
+  font-size: 18px
+}
+
+.box_contents {
+  padding: 13px;
+}
+
+.chart {
+  width: 450px;
+  height: 300px;
+}
+
+.phone_center {
+  margin: 0px auto;
+  width: 320px;
+}
