@@ -268,3 +268,8 @@ ol.text li {
 .box_contents {
   padding: 13px;
 }
+
+.chart {
+  width: 450px;
+  height: 300px;
+}
