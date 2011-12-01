@@ -213,11 +213,11 @@ input[type="text"] {
 }
 
 input[type="text"].wide {
-  width: 400px;
+  width: 257px;
 }
 
 input[type="text"].narrow {
-  width: 150px;
+  width: 100px;
 }
 
 img.flanker_icon {
