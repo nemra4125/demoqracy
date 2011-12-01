@@ -129,7 +129,7 @@ ul.flat_link_list li {
   display: inline;
   float: left;
   width: 45%;
-  min-width: 320px;
+  min-width: 257px;
   max-width: 450px;
   padding-right: 30px;
 }
@@ -137,7 +137,7 @@ ul.flat_link_list li {
 #home_right {
   float: left;
   width: 45%;
-  min-width: 320px;
+  min-width: 257px;
   max-width: 450px;
   dipslay: inline;
 }
@@ -254,9 +254,9 @@ ol.text li {
 
 .flex_column_item {
   display: inline-block;
-  min-width: 320px;
+  min-width: 257px;
   margin-bottom: 16px;
-  margin-right: 16px;
+  margin-right: 30px;
 }
 
 .box_header {
