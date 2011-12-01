@@ -26,8 +26,8 @@
     });
 
     if (numTotalVotes > 0) {
-      barChart.draw(data, { width: 450, height: 300, colors: ["#caeefc"] });
-      pieChart.draw(data, { width: 450, height: 300 });
+      barChart.draw(data, {colors: ["#caeefc"]});
+      pieChart.draw(data);
 
       $('#charts').fadeIn('slow');
     }

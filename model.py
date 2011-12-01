@@ -19,6 +19,11 @@ class Election(db.Model):
     query = Candidate.all().ancestor(self).order("name")
     return [candidate for candidate in query]
 
+  def GetCandidateNamesAsJson(self):
+    query = Candidate.all().ancestor(self).order("name")
+    candidates = [candidate.name for candidate in query]
+    return json.dumps(candidates)
+
   def GetActiveChannelIds(self):
     oldest_active_token = datetime.now() - timedelta(hours=2)
     query = ChannelToken.all().ancestor(self).filter(
@@ -50,6 +55,11 @@ class Election(db.Model):
                       for candidate
                       in self.GetCandidates()]
     return json.dumps(election_state)
+
+  def GetElectionHistory(self):
+    query = Vote.all().filter("election =", str(self.key())).order("vote_time")
+    history = [vote.parent().name for vote in query]
+    return len(history), json.dumps(history)
 
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
