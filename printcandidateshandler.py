@@ -8,7 +8,7 @@ class PrintCandidatesHandler(BaseHandler):
   @login_required
   def get(self, election_id):
     election = Election.get_by_id(long(election_id))
-    if election.owner != users.get_current_user():
+    if election is None or election.owner != users.get_current_user():
       raise HTTPUnauthorized("You are not the owner of this election.")
     candidates = []
     for candidate in election.GetCandidates():
