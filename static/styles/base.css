@@ -280,3 +280,7 @@ ol.text li {
   margin: 0px auto;
   width: 320px;
 }
+
+p.open_text_block {
+  max-width: 800px;
+}
