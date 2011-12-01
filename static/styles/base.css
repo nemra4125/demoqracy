@@ -284,3 +284,9 @@ ol.text li {
 p.open_text_block {
   max-width: 800px;
 }
+
+img.intext {
+  display: inline;
+  float: left;
+  margin: 0px 6px 6px 0px;
+}
