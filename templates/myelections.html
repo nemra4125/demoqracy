@@ -10,11 +10,11 @@
         <a href="/elections/{{ election.id }}/view">{{ election.title }}</a>
       </div>
       <div class="box_contents">
-        <ol>
-          <li>Candidate A: 15 votes</li>
-          <li>Candidate B: 12 votes</li>
-          <li>Candidate C: 4 votes</li>
-        </ol>
+        <ul>
+          {% for candidate in election.candidates %}
+          <li>{{ candidate.name }}: {{ candidate.vote_count }}</li>
+          {% endfor %}
+        </ul>
         <a href="/elections/{{ election.id }}/view">View Details &gt;&gt;</a>
       </div>
     </div>

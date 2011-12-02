@@ -6,6 +6,7 @@ from printcandidateshandler import PrintCandidatesHandler
 from purgetokenshandler import PurgeTokensHandler
 from viewelectionhandler import ViewElectionHandler
 from myelectionshandler import MyElectionsHandler
+from webvotehandler import WebVoteHandler
 from howitworkshandler import HowItWorksHandler
 from abouthandler import AboutHandler
 from votehandler import VoteHandler
@@ -17,6 +18,7 @@ application = webapp2.WSGIApplication([
     ('/elections', MyElectionsHandler),
     ('/how-it-works', HowItWorksHandler),
     ('/about', AboutHandler),
+    ('/vote/(\d+)', WebVoteHandler),
     ('/elections/create', CreateElectionHandler),
     ('/elections/(\d+)/print', PrintCandidatesHandler),
     ('/elections/(\d+)/view', ViewElectionHandler),

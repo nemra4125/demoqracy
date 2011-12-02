@@ -289,6 +289,10 @@ img.intext {
   margin: 0px 6px 6px 0px;
 }
 
+#bottom_ad_block {
+  margin-top: 16px;
+}
+
 #tech-info {
   position: fixed;
   top: 1em;
