@@ -85,17 +85,17 @@
   {% if election_id %}
   <h3>Now What?</h3>
   Visit the <a href="/elections/{{election_id}}/view">election page</a> to:
-  <ol class=text>
+  <ul class="flush">
     <li>
     Print your barcodes
     </li>
     <li>
     Track the results of your election
     </li>
-  </ol>    
+  </ul>    
   {% else %}
   <h3>Tips</h3>
-  <ol class=text>
+  <ul class="flush">
     <li>
     Use descriptive text for each candidate item. These labels will be printed alongside their corresponding barcodes.
     </li>
@@ -105,6 +105,6 @@
     <li>
     Users can only vote once per election, but can change their votes by scanning a different barcode.
     </li>
-  </ol>    
+  </ul>    
   {% endif %}
 {% endblock right %}

@@ -21,7 +21,7 @@ demoQRacy is a tool that makes offline voting easier using mobile phones.
   
 {% block right %}
 <h3>My Elections</h3>
-<ul>
+<ul class="flush">
 {% for election in elections %}
   <li><a href="/elections/{{ election.id }}/view">{{ election.title }}</a></li>
 {% endfor %}
