@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Powered by demoQRacy</title>
+<link rel="stylesheet" type="text/css" href="/static/styles/base.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/print.css">
+</head>
+<body>
+  {% for candidate in candidates %}
+  <div class="candidate">
+    <p class="title">{{ title }}</p>
+    <p class="explanation">
+      Scan the barcode to vote for <a href="{{ candidate.url }}">{{
+        candidate.name }}</a>
+    </p>
+    <img class="qrcode"
+      src="//chart.googleapis.com/chart?chs=500x500&cht=qr&chl={{ candidate.url }}"
+    >
+  </div>
+  {% endfor %}
+</body>
+</html>

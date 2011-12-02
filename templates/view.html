@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block page_title %}Candidates for Election {{ title }}{% endblock %}
+
+{% block javascript_head %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="/_ah/channel/jsapi" type="text/javascript"></script>
+  <script src="/static/javascript/view.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(function() {
+      drawChart({{ election_state|safe }});
+    });
+
+    {% if election_is_active %}
+      var electionId = '{{ election_id }}';
+    {% endif %}
+  </script>
+{% endblock javascript_head %}
+
+{% block content %}
+  <h3>{{ title }}</h3>
+  <p class="open_text_block">
+  <strong>There are two ways for your consistuents to vote for the {{ title }}.</strong> 
+  You can print out
+  barcodes using the link below, and place the barcodes next to the
+  items being voted on. When the barcodes are scanned using a mobile
+  phone, they'll open the user's browser to a web site where they can
+  vote. Alternatively, if your users are in front of a computer, you
+  can point them to the URL below.</p>
+  {% for candidate in candidates %}
+    <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
+  {% endfor %}
+  <div data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5">
+    <img src="/static/images/icons/printer.png" class="flanker_icon" data-tech-name="QR Code Generation" data-tech-url="templates/print.html#15">
+    <a href="/elections/{{ election_id }}/print" class="big_link" target="_blank">Print Barcodes</a>
+  </div>
+  <div>
+    <img src="/static/images/icons/printer.png" class="flanker_icon" />
+    <a href="/elections/{{ election_id }}/print" target="_blank">Print Barcodes</a>
+  </div>
+  <div>
+    <img src="/static/images/icons/tick.png" class="flanker_icon" />
+    Online voting page URL: <a href="/vote/{{ election_id }}">http://demoqracy.com/vote/{{ election_id }}</a>
+  </div>
+  <div id="charts_div" style="margin-top: 10px">
+    <div class="box flex_column_item">
+      <div class="box_header">Vote Percentage</div>
+      <div class="box_contents">
+        <span id="pie-chart">No votes yet.</span>
+      </div>
+    </div>
+    <div class="box flex_column_item">
+      <div class="box_header">Total Votes</div>
+      <div class="box_contents">
+        <span id="bar-chart">No votes yet.</span>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

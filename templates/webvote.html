@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block page_title %}Candidates for Election {{ title }}{% endblock %}
+
+{% block content %}
+  <h3>{{ title }}</h3>
+  
+  {% if canvote %}
+    <form method="post">
+    <ul class="undecorated_stack">
+    {% for candidate in candidates %}
+        <li>
+          <input type="radio" id="radio_{{ candidate.id }}" name="candidate" value="{{ candidate.id }}" />
+          <label for="radio_{{ candidate.id }}">{{ candidate.name }}</label>
+        </li>
+    {% endfor %}
+      <li>
+        <input type="submit" name="submit" value="Vote" />
+      </li>
+    </ul>
+  </form>
+  {% else %}
+    <!-- Print status message -->
+    {{ message }}
+  {% endif %}
+  
+  {% if show_ads %}
+    <!-- Ad serving code -->
+    <!-- TODO: Replace with real AdSense code once we get an account -->
+    <div id="bottom_ad_block">
+      <img src="/static/images/fakead.gif" title="fake ad" alt="fake ad"/>
+    </div>
+  {% endif %}
+  
+{% endblock content %}

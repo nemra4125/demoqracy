@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_title %}History of Election {{ title }}{% endblock %}
+
+{% block javascript_head %}
+  <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+  <script src="/static/javascript/history.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var electionHistory = {{ history|safe }};
+    var candidates = {{ candidates|safe }};
+
+    google.load("visualization", "1", {packages: ["corechart"]});
+    google.setOnLoadCallback(onLoadCallback);
+  </script>
+{% endblock javascript_head %}
+
+{% block content %}
+  <h3>History of Election {{ title }}</h3>
+  <input type="button" id="play" value="Play" disabled></input>
+  <input id="history-range" type="range" value="0" min="0" max="{{ vote_count }}" data-tech-name="HTML5 Range Control" data-tech-url="templates/history.html#20" disabled/>
+  <div id="chart" class="chart" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/history.js#6"></div>
+{% endblock content %}
+
+{% block dummy_tech_spans %}
+  <span data-tech-name="Web Workers" data-tech-url="static/javascript/history-worker.js#2"></span>
+{% endblock dummy_tech_spans %}
