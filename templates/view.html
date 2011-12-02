@@ -21,7 +21,7 @@
 {% block content %}
   <h3>{{ title }}</h3>
   <p class="open_text_block">
-  <strong>There are two ways for your consistuents to vote for the {{ title }}.</strong> 
+  <strong>There are two ways for your constituents to vote for the {{ title }}.</strong> 
   You can print out
   barcodes using the link below, and place the barcodes next to the
   items being voted on. When the barcodes are scanned using a mobile
@@ -43,13 +43,13 @@
     <div class="box flex_column_item">
       <div class="box_header">Vote Percentage</div>
       <div class="box_contents">
-        <span id="pie-chart">No votes yet.</span>
+        <span id="pie-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
       </div>
     </div>
     <div class="box flex_column_item">
       <div class="box_header">Total Votes</div>
       <div class="box_contents">
-        <span id="bar-chart">No votes yet.</span>
+        <span id="bar-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
       </div>
     </div>
   </div>
