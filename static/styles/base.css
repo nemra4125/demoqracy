@@ -303,11 +303,13 @@ img.intext {
   color: white;
   padding: 1em;
   display: none;
+  border: 2px solid #ffffff;
 }
 
 #tech-info ul {
   list-style: none;
-  padding-left: 1em;
+  padding: 0px 0px 0px 1em;
+  margin: 0px;
 }
 
 #toggle-tech {
