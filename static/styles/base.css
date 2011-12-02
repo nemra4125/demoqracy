@@ -62,14 +62,7 @@ a:hover.no-hover-underline {
   padding-left: 30px;
   margin: 0;
   background-color: #b09d8d;
-  height: 36px;
-}
-
-#plusone_container {
-  display: inline-block;
-  position: relative;
-  top: 6px;
-  left: 10px;
+  min-height: 36px;
 }
 
 #header-links {
@@ -97,6 +90,11 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+ul.flush {
+  margin: 20px;
+  padding: 0px;
 }
 
 ul.flat_link_list {

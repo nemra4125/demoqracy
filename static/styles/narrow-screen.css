@@ -1,0 +1,9 @@
+body {
+  max-width: 480px;
+}
+
+#plusone_container {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
