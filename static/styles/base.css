@@ -17,7 +17,13 @@ body {
   margin-left: 30px;
   position: relative;
   height: 3.4em;
-  width: 50%;
+  font-size: 4em;
+}
+
+@media only screen and (max-device-width: 480px) {
+  #logo {
+    font-size: 2em;
+  }
 }
 
 a:hover.no-hover-underline {
@@ -36,7 +42,7 @@ a:hover.no-hover-underline {
 
 #top-right-square {
   top: 0;
-  right: 0.6em;
+  left: 8.2em;
 }
 
 #bottom-left-square {
@@ -51,7 +57,7 @@ a:hover.no-hover-underline {
 }
 
 #demoqracy-text a {
-    color: #404040;
+  color: #404040;
 }
 
 #demoqracy-text a:hover {

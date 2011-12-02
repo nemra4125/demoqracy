@@ -5,13 +5,6 @@
     return name.replace(' ', '-');
   }
 
-  function bindResizeHandler() {
-    $(window).bind('resize', function() {
-      var newSize = $(window).width() / 20;
-      $('#header').css('font-size', newSize);
-    }).trigger('resize');
-  }
-
   function bindTechInfoHandlers() {
     $('#toggle-tech').click(function() {
       $('#tech-info').toggle();
@@ -43,7 +36,6 @@
   }
 
   $(function() {
-    bindResizeHandler();
     bindTechInfoHandlers();
     addPlusOneButton();
   });
