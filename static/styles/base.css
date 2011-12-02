@@ -192,6 +192,8 @@ h3 {
 
 .undecorated_stack {
   list-style: none;
+  padding: 0px;
+  margin: 0px;
 }
 
 ul.undecorated_stack li {
