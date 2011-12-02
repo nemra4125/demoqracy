@@ -99,8 +99,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
-
 ul.flat_link_list {
   margin: 0;
   padding: 0;
@@ -289,4 +287,23 @@ img.intext {
   display: inline;
   float: left;
   margin: 0px 6px 6px 0px;
+}
+
+#tech-info {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  background-color: #404040;
+  color: white;
+  padding: 1em;
+  display: none;
+}
+
+#tech-info ul {
+  list-style: none;
+  padding-left: 1em;
+}
+
+#toggle-tech {
+  cursor: pointer;
 }

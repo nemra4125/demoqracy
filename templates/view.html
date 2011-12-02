@@ -23,8 +23,8 @@
   {% for candidate in candidates %}
     <p><a href="/{{ election_id }}/{{ candidate.id }}/vote">{{ candidate.name }}</a> has {{ candidate.votes }} vote{% if candidate.votes != 1 %}s{% endif %}.</p>
   {% endfor %}
-  <div>
-    <img src="/static/images/icons/printer.png" class="flanker_icon" />
+  <div data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5">
+    <img src="/static/images/icons/printer.png" class="flanker_icon" data-tech-name="QR Code Generation" data-tech-url="templates/print.html#15">
     <a href="/elections/{{ election_id }}/print" class="big_link" target="_blank">Print Barcodes</a>
   </div>
   <div>
