@@ -35,8 +35,13 @@
     s.parentNode.insertBefore(po, s);
   }
 
+  function addButtonRoles() {
+    $('.button').attr('role', 'button');
+  }
+
   $(function() {
     bindTechInfoHandlers();
     addPlusOneButton();
+    addButtonRoles();
   });
 })();

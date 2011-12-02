@@ -184,8 +184,13 @@ h3 {
 }
 
 .button {
-  background-color: #404040;
-  padding: 6px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040), to(#666666));
+  border-radius: 5px;
+  padding: 6px 12px 6px 12px;
+}
+
+.button a {
+  text-decoration: none;
 }
 
 #new_election_home_button {
