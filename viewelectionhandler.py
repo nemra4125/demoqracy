@@ -15,4 +15,5 @@ class ViewElectionHandler(BaseHandler):
                          election_state=election_state,
                          title=election.title,
                          election_id=election_id,
-                         election_is_active=election.IsActive())
+                         election_is_active=election.IsActive(),
+                         total_votes=election.GetElectionHistory()[0])
