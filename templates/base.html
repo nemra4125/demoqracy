@@ -37,16 +37,15 @@
     </script>
   </head>
 
-  <body>
-	<div id="header">
-      
-        <div id="logo">
-          <div id="top-left-square" class="square">&#x25a3;</div>
-          <div id="top-right-square" class="square">&#x25a3;</div>
-          <div id="bottom-left-square" class="square">&#x25a3;</div>
-          <div id="demoqracy-text"><a class="no-hover-underline" href="/">demoQRacy</a></div>
-        </div>
-	</div>
+  <body{% if handler_source_file %} data-tech-name="webapp2 Handlers" data-tech-url="{{ handler_source_file }}"{% endif %}>
+    <div id="header">
+      <div id="logo" data-tech-name="Web Fonts" data-tech-url="templates/base.html#15">
+        <div id="top-left-square" class="square">&#x25a3;</div>
+        <div id="top-right-square" class="square">&#x25a3;</div>
+        <div id="bottom-left-square" class="square">&#x25a3;</div>
+        <div id="demoqracy-text"><a class="no-hover-underline" href="/">demoQRacy</a></div>
+      </div>
+    </div>
     
     <div id="subheader">
       <ul id="header-links">
@@ -66,9 +65,13 @@
           {% endif %}
         </li>
       </ul>
-      <div id="plusone_container">
+      <div id="plusone_container" data-tech-name="+1 Button" data-tech-url="static/javascript/base.js#8">
         <div class="g-plusone" data-href="http://www.demoqracy.com"></div>
       </div>
+    </div>
+
+    <div id="tech-info">
+      <div>Technologies used on this page:</div>
     </div>
 
     <div id="content">
@@ -77,6 +80,8 @@
 
     <div id="footer">
       <ul class="flat_link_list">
+        <li><a id="toggle-tech">Toggle Tech Info</a></li>
+        <li>|</li>
         <li><a href="/about">About</a></li>
         <li>|</li>
         <li><a href="/how-it-works">How it Works</a></li>
@@ -86,5 +91,7 @@
         <li>&copy; 2011 Patent Pending</li>
       </ul>
     </div>
+
+    {% block dummy_tech_spans %}{% endblock dummy_tech_spans %}
   </body>
 </html>
