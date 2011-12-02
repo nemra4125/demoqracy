@@ -188,6 +188,10 @@ h3 {
   color: #aaaaaa;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .undecorated_stack {
   list-style: none;
   padding: 0px;
