@@ -317,6 +317,7 @@ img.intext {
   padding: 1em;
   display: none;
   border: 2px solid #ffffff;
+  z-index: 2;
 }
 
 #tech-info ul {
@@ -336,7 +337,13 @@ img.intext {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: gray;
-  filter: alpha(opacity=90);
+  background-color: white;
+  filter: alpha(opacity=80);
   opacity: 0.9;
+  z-index: 1;
+}
+
+.highlighted {
+  position: absolute;
+  z-index: 2;
 }
