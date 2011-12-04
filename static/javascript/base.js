@@ -1,10 +1,6 @@
 (function() {
   var TECH_URL_BASE = 'https://code.google.com/a/google.com/p/demoqracy/source/browse/';
 
-  function techNameToId(name) {
-    return name.replace(' ', '-');
-  }
-
   function bindTechInfoHandlers() {
     $('#toggle-tech').click(function() {
       $('#tech-info').toggle();
@@ -12,18 +8,20 @@
 
     var lis = [];
     $('[data-tech-name]').each(function () {
-      var liId = techNameToId($(this).data('tech-name'));
-      var li = $.sprintf('<li id="%s"><a target="_blank" href="%s%s">%s</a></li>',
-          liId, TECH_URL_BASE, $(this).data('tech-url'), $(this).data('tech-name'));
-      lis.push(li);
-
-      $(this).hover(function(event) {
-        $('#' + liId).css('list-style', 'disc outside none');
-      }, function(event) {
-        $('#' + liId).css('list-style', 'none');
-      });
+      var li = $($.sprintf('<li><a target="_blank" href="%s%s">%s</a></li>',
+          TECH_URL_BASE, $(this).data('tech-url'), $(this).data('tech-name')));
+      var elementToHighlight = $(this);
+      if (this.tagName.toLowerCase() != 'body') {
+        li.hover(function() {
+          $('#translucent-overlay').show();
+          elementToHighlight.addClass('highlighted');
+        }, function() {
+          $('#translucent-overlay').hide();
+          elementToHighlight.removeClass('highlighted');
+        });
+      }
+      $('#tech-info-list').append(li);
     });
-    $('#tech-info').append($.sprintf('<ul>%s</ul>', lis.sort().join('')));
   }
 
   function addPlusOneButton() {
