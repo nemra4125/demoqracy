@@ -6,4 +6,4 @@ from webapp2_extras.appengine.users import admin_required
 class PurgeTokensHandler(BaseHandler):
   @admin_required
   def get(self):
-    db.delete(ChannelApiHelper().GetExpiredChannels())
+    db.delete(ChannelApiHelper("ignored").GetExpiredChannels())
