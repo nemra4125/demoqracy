@@ -35,20 +35,24 @@ from uuid import uuid4
 from google.appengine.api import channel, memcache, namespace_manager
 from google.appengine.ext import db
 
+
 # This corresponds to the current lifetime of a given channel connection.
 CHANNEL_LIFETIME_HOURS = 2
 CHANNEL_LIFETIME_SECONDS = CHANNEL_LIFETIME_HOURS * 60 * 60
 
+
 # Set up a default SendChannelMessage method for when threading isn't supported.
 SendChannelMessage = lambda channel_id, message: channel.send_message(
   channel_id, message)
-# The Python 2.7 App Engine runtime supports threading, so let's try to use it.
+# The Python 2.7 App Engine runtime supports threading, so let's see if we can
+# use it.
 try:
   import threading
   SendChannelMessage = lambda channel_id, message: threading.Thread(
     target=channel.send_message, args=(channel_id, message)).start()
 except ImportError:
   pass
+
 
 def customnamespace(original_method):
   """Decorator to use a custom App Engine namespace temporarily.
