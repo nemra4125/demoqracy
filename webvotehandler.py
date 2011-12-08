@@ -1,5 +1,6 @@
 from basehandler import BaseHandler
-from google.appengine.api import channel, users
+from channelapihelper import ChannelApiHelper
+from google.appengine.api import users
 from model import Vote, Candidate, Election
 from webapp2_extras.appengine.users import login_required
 from webob.exc import HTTPUnauthorized, HTTPBadRequest
@@ -39,8 +40,7 @@ class WebVoteHandler(BaseHandler):
   # Should be abstracted into a common class
   def NotifyChannels(self, election):
     message = election.GetElectionStateAsJson()
-    for channel_id in election.GetActiveChannelIds():
-      channel.send_message(channel_id, message)
+    ChannelApiHelper(election).NotifyChannels(message)
     
   def post(self, election_id):
     election = Election.get_by_id(long(election_id))
