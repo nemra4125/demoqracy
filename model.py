@@ -10,6 +10,7 @@ class Election(db.Model):
   end = db.DateTimeProperty()
   record_voter_email = db.BooleanProperty(default=False)
   ads_enabled = db.BooleanProperty(default=True)
+  public_results = db.BooleanProperty(default=True)
 
   @staticmethod
   def GetElections(owner):
@@ -24,12 +25,6 @@ class Election(db.Model):
     query = Candidate.all().ancestor(self).order("name")
     candidates = [candidate.name for candidate in query]
     return json.dumps(candidates)
-
-  def GetActiveChannelIds(self):
-    oldest_active_token = datetime.now() - timedelta(hours=2)
-    query = ChannelToken.all().ancestor(self).filter(
-      "created >", oldest_active_token)
-    return [channel_token.channel_id for channel_token in query]
 
   def IsActive(self):
     now = datetime.now()
@@ -74,14 +69,3 @@ class Vote(db.Model):
   voter = db.StringProperty(required=True)
   election = db.StringProperty()
   vote_time = db.DateTimeProperty(auto_now_add=True)
-
-
-class ChannelToken(db.Model):
-  channel_id = db.StringProperty()
-  created = db.DateTimeProperty(auto_now_add=True)
-
-  @staticmethod
-  def GetExpiredChannelTokens():
-    oldest_active_token = datetime.now() - timedelta(hours=2)
-    query = ChannelToken.all().filter("created <=", oldest_active_token)
-    return [channel_token for channel_token in query]
