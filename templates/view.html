@@ -16,6 +16,46 @@
       var electionId = '{{ election_id }}';
     {% endif %}
   </script>
+  {% if ads_enabled %}
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script>
+      google.load('payments', '1.0', {
+        'packages': ['sandbox_config']
+      });
+
+      // Success handler
+      var successHandler = function(purchaseActionStatus){
+        if (window.console != undefined) {
+          console.log("Purchase completed successfully: ", purchaseActionStatus);
+          var formData = new FormData();
+          formData.append("ads_enabled", 'False');
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("post", '/elections/{{ election_id }}/update');
+          xhr.send(formData);
+          window.location.reload(true);
+
+        }
+      }
+
+      // Failure handler
+      var failureHandler = function(purchaseActionStatus){
+        if (window.console != undefined) {
+          console.log("Purchase did not complete ", purchaseActionStatus);
+        }
+      }
+
+      function purchase() {
+        var generated_jwt = '{{ ads_free_jwt }}';
+
+        goog.payments.inapp.buy({
+          'jwt'     : generated_jwt,
+          'success' : successHandler,
+          'failure' : failureHandler
+        });
+      }
+    </script>
+  {% endif %}
 {% endblock javascript_head %}
 
 {% block content %}
@@ -39,6 +79,15 @@
     <img src="/static/images/icons/tick.png" class="flanker_icon" />
     Online voting page URL: <a href="/vote/{{ election_id }}">http://demoqracy.com/vote/{{ election_id }}</a>
   </div>
+  {% if ads_enabled %}
+  <div>
+      Ads are enabled for this election. <a onclick="purchase()">Go Ads-Free for $0.99!</a>
+  </div>
+  {% else %}
+  <div>
+      This election is ad free. Thanks for your support!
+  </div>
+  {% endif %}
   <div id="charts_div" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5" style="margin-top: 10px">
     <div class="box flex_column_item">
       <div class="box_header">Vote Percentage</div>

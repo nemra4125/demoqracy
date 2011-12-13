@@ -3,8 +3,18 @@
 {% block content %}  
     <div class="phone_center">
       {% if show_ads %}
-      <!-- TODO: Replace with real AdSense code once we get an account -->
-      <img src="/static/images/fakead.gif" title="fake ad" alt="fake ad"/>
+      <script type="text/javascript"><!--
+        // XHTML should not attempt to parse these strings, declare them CDATA.
+        /* <![CDATA[ */
+        window.googleAfmcRequest = {
+          client: 'ca-mb-pub-4798992313496993',
+          format: '320x50_mb',
+          output: 'html',
+          slotname: '8410728755',
+        };
+        /* ]]> */
+      //--></script>
+      <script type="text/javascript"    src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
       {% endif %}
       <h3>{{ title }}</h3>
       {% if canvote %}
