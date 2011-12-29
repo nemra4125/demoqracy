@@ -40,7 +40,8 @@ class ViewElectionHandler(BaseHandler):
                          election_is_active=election.IsActive(),
                          total_votes=election.GetElectionHistory()[0],
                          ads_enabled=election.ads_enabled,
-                         ads_free_jwt=item_token)
+                         ads_free_jwt=item_token,
+                         winners=election.GetWinners())
 
     def post(self, election_id, ads_enabled):
       election = Election.get_by_id(long(election_id))
