@@ -21,6 +21,18 @@ class Election(db.Model):
     query = Candidate.all().ancestor(self).order("name")
     return [candidate for candidate in query]
 
+  def GetWinners(self):
+    max_votes = -1
+    winners = []
+    for candidate in Candidate.all().ancestor(self):
+      votes = candidate.GetVoteCount()
+      if votes > max_votes:
+        max_votes = votes
+        winners = [candidate]
+      elif votes == max_votes:
+        winners.append(candidate)
+    return winners
+
   def GetCandidateNamesAsJson(self):
     query = Candidate.all().ancestor(self).order("name")
     candidates = [candidate.name for candidate in query]
