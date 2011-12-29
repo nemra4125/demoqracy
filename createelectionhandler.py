@@ -34,9 +34,16 @@ class CreateElectionHandler(BaseHandler):
     election = Election(title=params["title"], owner=users.get_current_user(),
                         record_voter_email=record_voter_email)
     if "start_ts" in params:
-      election.start = datetime.datetime.fromtimestamp(params["start_ts"])
+      try:
+        election.start = datetime.datetime.fromtimestamp(
+          float(params["start_ts"]))
+      except ValueError:
+        pass
     if "end_ts" in params:
-      election.end = datetime.datetime.fromtimestamp(params["end_ts"])
+      try:
+        election.end = datetime.datetime.fromtimestamp(float(params["end_ts"]))
+      except ValueError:
+        pass
     election.put()
     for name in params["candidates"]:
       if name:

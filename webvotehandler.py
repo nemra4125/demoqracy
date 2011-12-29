@@ -14,11 +14,11 @@ class WebVoteHandler(BaseHandler):
     
     message = ""
     canvote = True
-    show_ads = True
 
-    if election.ads_enabled == False:
-      show_ads = False
-    
+    if not election.IsActive():
+      message = "This election is not currently active."
+      canvote = False
+
     if election.HasAlreadyVoted(users.get_current_user()):
       message = "You've already voted in this election."
       canvote = False
@@ -31,13 +31,11 @@ class WebVoteHandler(BaseHandler):
                          election_state=election_state,
                          title=election.title,
                          election_id=election_id,
-                         election_is_active=election.IsActive(),
                          candidates=candidates,
                          canvote=canvote,
                          message=message,
-                         show_ads=show_ads)
+                         show_ads=election.ads_enabled)
   
-  # Should be abstracted into a common class
   def NotifyChannels(self, election):
     message = election.GetElectionStateAsJson()
     ChannelApiHelper(election).NotifyChannels(message)
@@ -45,7 +43,10 @@ class WebVoteHandler(BaseHandler):
   def post(self, election_id):
     election = Election.get_by_id(long(election_id))
     if election is None:
-      raise HTTPBadRequest("Invalid election provided")
+      raise HTTPBadRequest("Invalid election id provided.")
+
+    if not election.IsActive():
+      raise HTTPBadRequest("This election is not active.")
     
     try:
       candidate_id = self.request.get("candidate")

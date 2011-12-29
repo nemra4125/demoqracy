@@ -8,24 +8,23 @@ from webob.exc import HTTPUnauthorized, HTTPBadRequest
 class VoteHandler(BaseHandler):
   @login_required
   def get(self, election_id, candidate_id):
-    election, candidate = self.ValidateElectionAndCandidate(
-      election_id, candidate_id)
+    election, candidate = self.ValidateElectionAndCandidate(election_id,
+                                                            candidate_id)
     
     message = ""
     canvote = True
-    show_ads = True
 
-    if election.ads_enabled == False:
-      show_ads = False
+    if not election.IsActive():
+      message = "This election is not currently active."
+      canvote = False
     
     if election.HasAlreadyVoted(users.get_current_user()):
       message = "You've already voted in this election."
       canvote = False
-      #raise HTTPBadRequest("You've already voted in this election.")
-    
+
     self.render_template("vote.html", title=election.title, 
                          name=candidate.name, message=message, 
-                         canvote=canvote, show_ads=show_ads)
+                         canvote=canvote, show_ads=election.ads_enabled)
 
   def post(self, election_id, candidate_id):
     if self.request.get("cancel_button") == "True":
@@ -36,6 +35,8 @@ class VoteHandler(BaseHandler):
       raise HTTPUnauthorized("You must be logged in to vote.")
     election, candidate = self.ValidateElectionAndCandidate(
       election_id, candidate_id, current_user)
+    if not election.IsActive():
+      raise HTTPBadRequest("This election is not active.")
     voter_id = election.GenerateVoterId(current_user)
     Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
     self.NotifyChannels(election)
