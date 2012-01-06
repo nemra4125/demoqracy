@@ -13,8 +13,8 @@ class ViewElectionHandler(BaseHandler):
   @login_required
   def get(self, election_id):
     election = Election.get_by_id(long(election_id))
-    if election is None or election.owner != users.get_current_user():
-      raise HTTPUnauthorized("You are not the owner of this election.")
+    if election is None:
+      raise HTTPUnauthorized("That is not a valid election id.")
     election_state = election.GetElectionStateAsJson()
 
     now = int(time.time())
