@@ -11,5 +11,6 @@ class NotifyOwnerHandler(BaseHandler):
         to=election.owner.email(),
         subject="The election '%s' has ended!" % election.title,
         body="The election '%s' has ended, and '%s' has won!" %
-             (election.title, election.GetWinners())
+             (election.title,
+              ", ".join([winner.name for winner in election.GetWinners()]))
       )
