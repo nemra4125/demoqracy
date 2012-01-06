@@ -1,5 +1,5 @@
 from basehandler import BaseHandler
-from google.appengine.api import users
+from google.appengine.api import taskqueue, users
 from google.appengine.ext import db
 from model import Candidate, Election
 from utils import ProcessParams
@@ -53,3 +53,7 @@ class CreateElectionHandler(BaseHandler):
                          render_form=False,
                          election_title=election.title,
                          election_id=election.key().id())
+    if election.end:
+      taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
+      taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
+                    eta=election.end)
