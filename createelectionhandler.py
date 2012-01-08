@@ -17,7 +17,7 @@ class CreateElectionHandler(BaseHandler):
       raise HTTPUnauthorized("You must be logged in to create a new election.")
     params = ProcessParams(request=self.request,
                            optional_params=["start_ts", "end_ts"],
-                           required_params=["title", "anonymity", "candidates"])
+                           required_params=["title", "candidates"])
     if (not isinstance(params["candidates"], list)
       or len(params["candidates"]) < 2):
       raise HTTPBadRequest("At least two candidates are required.")
@@ -29,8 +29,6 @@ class CreateElectionHandler(BaseHandler):
 
   def CreateElectionAndCandidates(self, params):
     record_voter_email = False
-    if params["anonymity"] == "off":
-      record_voter_email = True
     election = Election(title=params["title"], owner=users.get_current_user(),
                         record_voter_email=record_voter_email)
     if "start_ts" in params:

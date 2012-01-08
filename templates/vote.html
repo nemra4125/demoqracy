@@ -10,7 +10,7 @@
           client: 'ca-mb-pub-4798992313496993',
           format: '320x50_mb',
           output: 'html',
-          slotname: '8410728755',
+          slotname: '8410728755'
         };
         /* ]]> */
       //--></script>
@@ -28,6 +28,7 @@
       {% else %}
         {{ message }}
       {% endif %}
+      <p><a href="{{ user.logout_url }}">Log Out</a></p>
     </div>
 
 {% endblock content %}
