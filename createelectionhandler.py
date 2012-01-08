@@ -55,5 +55,4 @@ class CreateElectionHandler(BaseHandler):
                          election_id=election.key().id())
     if election.end:
       taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
-      taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
                     eta=election.end)
