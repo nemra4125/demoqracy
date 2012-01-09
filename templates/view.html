@@ -2,9 +2,14 @@
 
 {% block page_title %}Candidates for Election {{ title }}{% endblock %}
 
+{% block styles_head %}
+  <link rel="stylesheet" type="text/css" href="/static/styles/jquery.countdown.css">
+{% endblock styles_head %}
+
 {% block javascript_head %}
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script src="/_ah/channel/jsapi" type="text/javascript"></script>
+  <script type="text/javascript" src="/static/javascript/third-party/jquery.countdown.min.js"></script>
   <script src="/static/javascript/view.js" type="text/javascript"></script>
   <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
@@ -15,9 +20,13 @@
     {% if election_active == "ACTIVE" %}
       var electionId = '{{ election_id }}';
     {% endif %}
+
+    {% if countdown_time > 0 %}
+      var countdownTime = {{ countdown_time }} * 1000;
+    {% endif %}
   </script>
+
   {% if ads_enabled %}
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script>
       google.load('payments', '1.0', {
         'packages': ['sandbox_config']
@@ -62,6 +71,7 @@
   <h3>{{ title }}</h3>
   <p class="open_text_block">
   {% if election_active == "ACTIVE" %}
+    <div class="countdown">This election will end in: <div id="countdown"></div></div>
     <strong>There are two ways for your constituents to vote for the {{ title }}.</strong>
     You can print out barcodes using the link below, and place the barcodes next to the
     items being voted on. When the barcodes are scanned using a mobile
@@ -94,7 +104,7 @@
         <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
       {% endif %}
     {% else %}
-      <p>This election has not started yet.</p>
+      <div class="countdown">This election will start in: <div id="countdown"></div></div>
     {% endif %}
   {% endif %}
   <div id="charts_div" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5" style="margin-top: 10px">

@@ -55,6 +55,16 @@
     if (window.electionId != null) {
       openChannelConnection(window.electionId);
     }
+
+    if (window.countdownTime != null) {
+      $('#countdown').countdown({
+        until: new Date(window.countdownTime),
+        description: "Election Countdown",
+        onExpiry: function() {
+          window.location.reload(true);
+        }
+      });
+    }
   });
 })();
 
