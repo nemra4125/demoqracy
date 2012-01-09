@@ -1,16 +1,20 @@
+body {
+  padding-top: 4em;
+}
+
 .candidate {
   page-break-after: always;
 }
 
 .title {
-  font-size: 5em;
+  font-size: 3em;
   font-weight: bold;
   text-align: center;
   font-family: verdana, sans-serif;
 }
 
 .explanation {
-  font-size: 3em;
+  font-size: 2em;
   text-align: center;
 }
 
