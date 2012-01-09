@@ -15,8 +15,15 @@ class WebVoteHandler(BaseHandler):
     message = ""
     canvote = True
 
-    if not election.IsActive():
-      message = "This election is not currently active."
+    # TODO: All this is ugly, and needs to be a) refactored and b) not rely
+    # on a poorly named method that returns strings representing the election
+    # state.
+    election_active_state = election.CheckStartEndTime()
+    if election_active_state == "NOT_STARTED":
+      message = "This election has not started yet."
+      canvote = False
+    elif election_active_state == "ENDED":
+      message = "This election has ended."
       canvote = False
 
     if election.HasAlreadyVoted(users.get_current_user()):
@@ -44,15 +51,15 @@ class WebVoteHandler(BaseHandler):
     election = Election.get_by_id(long(election_id))
     if election is None:
       raise HTTPBadRequest("Invalid election id provided.")
-
-    if not election.IsActive():
-      raise HTTPBadRequest("This election is not active.")
-    
+    election_active_state = election.CheckStartEndTime()
+    if election_active_state == "NOT_STARTED":
+      raise HTTPBadRequest("This election has not started yet.")
+    elif election_active_state == "ENDED":
+      raise HTTPBadRequest("This election has ended.")
     try:
       candidate_id = self.request.get("candidate")
     except AttributeError:
       raise HTTPBadRequest("No candidate provided")
-    
     candidate = Candidate.get_by_id(long(candidate_id), parent=election)
     if candidate is None:
       raise HTTPBadRequest("Invalid candidate provided")

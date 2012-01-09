@@ -37,7 +37,7 @@ class ViewElectionHandler(BaseHandler):
                          election_state=election_state,
                          title=election.title,
                          election_id=election_id,
-                         election_is_active=election.IsActive(),
+                         election_active=election.CheckStartEndTime(),
                          total_votes=election.GetElectionHistory()[0],
                          ads_enabled=election.ads_enabled,
                          ads_free_jwt=item_token,

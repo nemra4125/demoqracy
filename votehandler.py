@@ -10,18 +10,21 @@ class VoteHandler(BaseHandler):
   def get(self, election_id, candidate_id):
     election, candidate = self.ValidateElectionAndCandidate(election_id,
                                                             candidate_id)
-    
     message = ""
     canvote = True
-
-    if not election.IsActive():
-      message = "This election is not currently active."
+    # TODO: All this is ugly, and needs to be a) refactored and b) not rely
+    # on a poorly named method that returns strings representing the election
+    # state.
+    election_active_state = election.CheckStartEndTime()
+    if election_active_state == "NOT_STARTED":
+      message = "This election has not started yet."
       canvote = False
-    
+    elif election_active_state == "ENDED":
+      message = "This election has ended."
+      canvote = False
     if election.HasAlreadyVoted(users.get_current_user()):
       message = "You've already voted in this election."
       canvote = False
-
     self.render_template("vote.html", title=election.title, 
                          name=candidate.name, message=message, 
                          canvote=canvote, show_ads=election.ads_enabled)
@@ -35,12 +38,16 @@ class VoteHandler(BaseHandler):
       raise HTTPUnauthorized("You must be logged in to vote.")
     election, candidate = self.ValidateElectionAndCandidate(
       election_id, candidate_id, current_user)
-    if not election.IsActive():
-      raise HTTPBadRequest("This election is not active.")
+    election_active_state = election.CheckStartEndTime()
+    if election_active_state == "NOT_STARTED":
+      raise HTTPBadRequest("This election has not started yet.")
+    elif election_active_state == "ENDED":
+      raise HTTPBadRequest("This election has ended.")
     voter_id = election.GenerateVoterId(current_user)
     Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
     self.NotifyChannels(election)
-    self.render_template("vote.html", canvote=False, message="Thanks! Your vote for %s has been registered." % candidate.name)
+    self.render_template("vote.html", canvote=False,
+        message="Thanks! Your vote for %s was registered." % candidate.name)
 
   def NotifyChannels(self, election):
     message = election.GetElectionStateAsJson()

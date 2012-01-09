@@ -38,13 +38,13 @@ class Election(db.Model):
     candidates = [candidate.name for candidate in query]
     return json.dumps(candidates)
 
-  def IsActive(self):
+  def CheckStartEndTime(self):
     now = datetime.now()
     if self.start is not None and self.start >= now:
-      return False
+      return "NOT_STARTED"
     elif self.end is not None and self.end <= now:
-      return False
-    return True
+      return "ENDED"
+    return "ACTIVE"
 
   def HasAlreadyVoted(self, voter):
     voter_id = self.GenerateVoterId(voter)
