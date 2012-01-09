@@ -77,11 +77,11 @@
       Online voting page URL: <a href="/vote/{{ election_id }}">http://demoqracy.com/vote/{{ election_id }}</a>
     </div>
     {% if ads_enabled %}
-    <div>
-        Ads are enabled for this election. <a onclick="purchase()">Go Ads-Free for $0.99!</a>
+    <div data-tech-name="In App Payments" data-tech-url="templates/view.html#20">
+        Ads are enabled for this election. Ads will be displayed on the voting pages. <a onclick="purchase()">Go Ads-Free for $0.99!</a>
     </div>
     {% else %}
-    <div>
+    <div data-tech-name="In App Payments" data-tech-url="templates/view.html#20">
         This election is ad free. Thanks for your support!
     </div>
     {% endif %}
