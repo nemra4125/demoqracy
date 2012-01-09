@@ -33,11 +33,19 @@ class ViewElectionHandler(BaseHandler):
                       'request': request_info}
     item_token = jwt.encode(basic_jwt_info, SELLER_SECRET)
 
+    election_active = election.CheckStartEndTime()
+    countdown_time = 0
+    if election_active == "NOT_STARTED" and election.start:
+      countdown_time = int(time.mktime(election.start.timetuple()))
+    elif election_active == "ACTIVE" and election.end:
+      countdown_time = int(time.mktime(election.end.timetuple()))
+
     self.render_template("view.html",
                          election_state=election_state,
                          title=election.title,
                          election_id=election_id,
-                         election_active=election.CheckStartEndTime(),
+                         election_active=election_active,
+                         countdown_time=countdown_time,
                          total_votes=election.GetElectionHistory()[0],
                          ads_enabled=election.ads_enabled,
                          ads_free_jwt=item_token,
