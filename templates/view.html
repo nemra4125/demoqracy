@@ -12,7 +12,7 @@
       drawChart({{ election_state|safe }});
     });
 
-    {% if election_is_active %}
+    {% if election_active == "ACTIVE" %}
       var electionId = '{{ election_id }}';
     {% endif %}
   </script>
@@ -61,7 +61,7 @@
 {% block content %}
   <h3>{{ title }}</h3>
   <p class="open_text_block">
-  {% if election_is_active %}
+  {% if election_active == "ACTIVE" %}
     <strong>There are two ways for your constituents to vote for the {{ title }}.</strong>
     You can print out barcodes using the link below, and place the barcodes next to the
     items being voted on. When the barcodes are scanned using a mobile
@@ -86,11 +86,15 @@
     </div>
     {% endif %}
   {% else %}
-    <p>This election has ended.</p>
-    {% if winners.length == 1 %}
-      <p>{{ winners.name }} won!</p>
+    {% if election_active == "ENDED" %}
+      <p>This election has ended.</p>
+      {% if winners.length == 1 %}
+        <p>{{ winners.name }} won!</p>
+      {% else %}
+        <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
     {% else %}
-      <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      <p>This election has not started yet.</p>
     {% endif %}
   {% endif %}
   <div id="charts_div" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5" style="margin-top: 10px">
