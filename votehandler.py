@@ -33,11 +33,13 @@ class VoteHandler(BaseHandler):
     if self.request.get("cancel_button") == "True":
        self.render_template("vote.html", message="Your vote has been discarded")
        return
+    election, candidate = self.ValidateElectionAndCandidate(election_id,
+                                                            candidate_id)
     current_user = users.get_current_user()
     if current_user is None:
       raise HTTPUnauthorized("You must be logged in to vote.")
-    election, candidate = self.ValidateElectionAndCandidate(
-      election_id, candidate_id, current_user)
+    if election.HasAlreadyVoted(current_user):
+      raise HTTPUnauthorized("You've already voted in this election.")
     election_active_state = election.CheckStartEndTime()
     if election_active_state == "NOT_STARTED":
       raise HTTPBadRequest("This election has not started yet.")
@@ -53,7 +55,7 @@ class VoteHandler(BaseHandler):
     message = election.GetElectionStateAsJson()
     ChannelApiHelper(election).NotifyChannels(message)
 
-  def ValidateElectionAndCandidate(self, election_id, candidate_id, voter=None):
+  def ValidateElectionAndCandidate(self, election_id, candidate_id):
     election = Election.get_by_id(long(election_id))
     if election is None:
       raise HTTPBadRequest("Couldn't find election with id '%s'." %

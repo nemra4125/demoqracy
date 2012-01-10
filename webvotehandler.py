@@ -1,7 +1,7 @@
 from basehandler import BaseHandler
 from channelapihelper import ChannelApiHelper
 from google.appengine.api import users
-from model import Vote, Candidate, Election
+from model import Candidate, Election, Vote
 from webapp2_extras.appengine.users import login_required
 from webob.exc import HTTPUnauthorized, HTTPBadRequest
 
@@ -10,11 +10,9 @@ class WebVoteHandler(BaseHandler):
   def get(self, election_id):
     election = Election.get_by_id(long(election_id))
     if election is None:
-      raise HTTPUnauthorized("Invalid election.")
-    
+      raise HTTPBadRequest("Invalid election.")
     message = ""
     canvote = True
-
     # TODO: All this is ugly, and needs to be a) refactored and b) not rely
     # on a poorly named method that returns strings representing the election
     # state.
@@ -42,42 +40,35 @@ class WebVoteHandler(BaseHandler):
                          canvote=canvote,
                          message=message,
                          show_ads=election.ads_enabled)
-  
-  def NotifyChannels(self, election):
-    message = election.GetElectionStateAsJson()
-    ChannelApiHelper(election).NotifyChannels(message)
     
   def post(self, election_id):
     election = Election.get_by_id(long(election_id))
     if election is None:
       raise HTTPBadRequest("Invalid election id provided.")
+    current_user = users.get_current_user()
+    if current_user is None:
+      raise HTTPUnauthorized("You must be logged in to vote.")
+    if election.HasAlreadyVoted(current_user):
+      raise HTTPUnauthorized("You've already voted in this election.")
     election_active_state = election.CheckStartEndTime()
     if election_active_state == "NOT_STARTED":
       raise HTTPBadRequest("This election has not started yet.")
     elif election_active_state == "ENDED":
       raise HTTPBadRequest("This election has ended.")
-    try:
-      candidate_id = self.request.get("candidate")
-    except AttributeError:
-      raise HTTPBadRequest("No candidate provided")
+    candidate_id = self.request.get("candidate")
+    if candidate_id is None:
+      raise HTTPBadRequest("No candidate was provided.")
     candidate = Candidate.get_by_id(long(candidate_id), parent=election)
     if candidate is None:
-      raise HTTPBadRequest("Invalid candidate provided")
-    
-    # Get current voter
-    voter_id = election.GenerateVoterId(users.get_current_user())
-      
-    # Register the vote
+      raise HTTPBadRequest("Invalid candidate id provided.")
+    voter_id = election.GenerateVoterId(current_user)
     Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
-    
-    # Notify the channels
     self.NotifyChannels(election)
-    
-    # Show a confirmation message
     self.render_template("webvote.html",
                          canvote=False,
                          message="Thanks! Your vote has been recorded",
                          show_ads=election.ads_enabled)
-    
-     
-    
+
+  def NotifyChannels(self, election):
+    message = election.GetElectionStateAsJson()
+    ChannelApiHelper(election).NotifyChannels(message)
