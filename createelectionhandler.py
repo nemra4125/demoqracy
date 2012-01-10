@@ -29,8 +29,7 @@ class CreateElectionHandler(BaseHandler):
 
   def CreateElectionAndCandidates(self, params):
     record_voter_email = False
-    election = Election(title=params["title"], owner=users.get_current_user(),
-                        record_voter_email=record_voter_email)
+    election = Election(title=params["title"], owner=users.get_current_user())
     if "start_ts" in params:
       try:
         election.start = datetime.datetime.fromtimestamp(

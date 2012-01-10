@@ -46,7 +46,8 @@ class VoteHandler(BaseHandler):
     elif election_active_state == "ENDED":
       raise HTTPBadRequest("This election has ended.")
     voter_id = election.GenerateVoterId(current_user)
-    Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
+    vote = Vote(parent=candidate, voter=voter_id, election=str(election.key()))
+    vote.RegisterVote()
     self.NotifyChannels(election)
     self.render_template("vote.html", canvote=False,
         message="Thanks! Your vote for %s was registered." % candidate.name)
