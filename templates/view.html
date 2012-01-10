@@ -101,8 +101,8 @@
     {% endif %}
   {% elif election_active == "ENDED" %}
     <p>This election has ended.</p>
-    {% if winners.length == 1 %}
-      <p>{{ winners.name }} won!</p>
+    {% if winners|length == 1 %}
+      <p>{{ winners[0].name }} won!</p>
     {% else %}
       <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endif %}
