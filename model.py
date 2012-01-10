@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+from google.appengine.api import users
 from google.appengine.ext import db
 import hashlib
 import json
@@ -8,9 +9,7 @@ class Election(db.Model):
   title = db.StringProperty(required=True)
   start = db.DateTimeProperty()
   end = db.DateTimeProperty()
-  record_voter_email = db.BooleanProperty(default=False)
   ads_enabled = db.BooleanProperty(default=True)
-  public_results = db.BooleanProperty(default=True)
 
   @staticmethod
   def GetElections(owner):
@@ -47,15 +46,14 @@ class Election(db.Model):
     return "ACTIVE"
 
   def HasAlreadyVoted(self, voter):
-    voter_id = self.GenerateVoterId(voter)
+    voter_id = voter
+    if isinstance(voter, users.User):
+      voter_id = self.GenerateVoterId(voter)
     query = Vote.all().ancestor(self).filter("voter =", voter_id)
     return query.get() is not None
 
   def GenerateVoterId(self, user):
-    if self.record_voter_email:
-      return user.email()
-    else:
-      return hashlib.md5(str(self.key()) + user.user_id()).hexdigest()
+    return hashlib.md5(str(self.key()) + user.user_id()).hexdigest()
 
   def GetElectionStateAsJson(self):
     election_state = [dict(name=candidate.name, votes=candidate.GetVoteCount(),
@@ -79,5 +77,14 @@ class Candidate(db.Model):
 
 class Vote(db.Model):
   voter = db.StringProperty(required=True)
-  election = db.StringProperty()
+  election = db.StringProperty(required=True)
   vote_time = db.DateTimeProperty(auto_now_add=True)
+
+  def RegisterVoteTransaction(self):
+    election = self.parent().parent()
+    if election.HasAlreadyVoted(self.voter):
+      raise db.TransactionFailedError("You've already voted in this election.")
+    self.put()
+
+  def RegisterVote(self):
+    db.run_in_transaction(self.RegisterVoteTransaction)

@@ -62,7 +62,8 @@ class WebVoteHandler(BaseHandler):
     if candidate is None:
       raise HTTPBadRequest("Invalid candidate id provided.")
     voter_id = election.GenerateVoterId(current_user)
-    Vote(parent=candidate, voter=voter_id, election=str(election.key())).put()
+    vote = Vote(parent=candidate, voter=voter_id, election=str(election.key()))
+    vote.RegisterVote()
     self.NotifyChannels(election)
     self.render_template("webvote.html",
                          canvote=False,

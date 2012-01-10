@@ -14,9 +14,9 @@ def ProcessParams(request, optional_params, required_params):
                            required_param)
   for optional_param in optional_params:
     value = request.params.getall(optional_param)
-    if len(value) < 2 or value[0] in (None, ""):
+    if len(value) < 2 or value[0] in (None, "", "0"):
       value = value[0]
-    if value not in (None, ""):
+    if value not in (None, "", "0"):
       params[optional_param] = value
   return params
 
