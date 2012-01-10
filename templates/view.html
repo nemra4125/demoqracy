@@ -14,8 +14,12 @@
   <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(function() {
-      drawChart({{ election_state|safe }});
+      updateLiveChart({{ election_state|safe }});
+      initializeHistoryChart();
     });
+
+    var electionHistory = {{ history|safe }};
+    var candidates = {{ candidates|safe }};
 
     {% if election_active == "ACTIVE" %}
       var electionId = '{{ election_id }}';
@@ -107,16 +111,25 @@
   {% endif %}
   <div id="charts_div" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5" style="margin-top: 10px">
     <div class="box flex_column_item">
-      <div class="box_header">Vote Percentage</div>
+      <div class="box_header">{% if election_active == "ACTIVE" %}Live {% endif %}Results</div>
       <div class="box_contents">
-        <span id="pie-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
+        <div>&nbsp;</div>
+        <span id="bar-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
       </div>
     </div>
     <div class="box flex_column_item">
-      <div class="box_header">Total Votes</div>
+      <div class="box_header">Vote Percentage Over Time</div>
       <div class="box_contents">
-        <span id="bar-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
+        <div>
+          <input type="button" id="play" value="Play" disabled></input>
+          <input id="history-range" type="range" value="0" min="0" max="{{ vote_count }}" data-tech-name="HTML5 Range Control" data-tech-url="templates/history.html#20" disabled/>
+        </div>
+        <span id="history-chart">{% if total_votes == 0 %}No votes yet.{% else %}Loading chart...{% endif %}</span>
       </div>
     </div>
   </div>
 {% endblock content %}
+
+{% block dummy_tech_spans %}
+  <span data-tech-name="Web Workers" data-tech-url="static/javascript/history-worker.js#2"></span>
+{% endblock dummy_tech_spans %}

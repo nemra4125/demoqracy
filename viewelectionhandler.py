@@ -33,6 +33,8 @@ class ViewElectionHandler(BaseHandler):
       countdown_time = int(time.mktime(election.start.timetuple()))
     elif election_active == "ACTIVE" and election.end:
       countdown_time = int(time.mktime(election.end.timetuple()))
+    vote_count, history = election.GetElectionHistory()
+    candidates = election.GetCandidateNamesAsJson()
     self.render_template("view.html",
                          election_state=election_state,
                          title=election.title,
@@ -42,4 +44,7 @@ class ViewElectionHandler(BaseHandler):
                          total_votes=election.GetElectionHistory()[0],
                          ads_enabled=election.ads_enabled,
                          ads_free_jwt=item_token,
+                         vote_count=vote_count - 1,
+                         history=history,
+                         candidates=candidates,
                          winners=election.GetWinners())

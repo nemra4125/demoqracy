@@ -1,6 +1,5 @@
 from createelectionhandler import CreateElectionHandler
 from generatechanneltokenhandler import GenerateChannelTokenHandler
-from historyhandler import HistoryHandler
 from indexhandler import IndexHandler
 from myelectionshandler import MyElectionsHandler
 from notifyownerhandler import NotifyOwnerHandler
@@ -27,7 +26,6 @@ application = webapp2.WSGIApplication([
     ('/elections/create', CreateElectionHandler),
     ('/elections/(\d+)/print', PrintCandidatesHandler),
     ('/elections/(\d+)/view', ViewElectionHandler),
-    ('/elections/(\d+)/history', HistoryHandler),
     ('/elections/(\d+)/update', UpdateElectionHandler),
     ('/elections/(\d+)/generate_channel_token', GenerateChannelTokenHandler),
     ('/elections/(\d+)/notify_owner', NotifyOwnerHandler),
