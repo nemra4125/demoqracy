@@ -69,9 +69,9 @@
 
 {% block content %}
   <h3>{{ title }}</h3>
+  <div id="countdown"></div>
   <p class="open_text_block">
   {% if election_active == "ACTIVE" %}
-    <div class="countdown">This election will end in: <div id="countdown"></div></div>
     <strong>There are two ways for your constituents to vote for the {{ title }}.</strong>
     You can print out barcodes using the link below, and place the barcodes next to the
     items being voted on. When the barcodes are scanned using a mobile
@@ -95,17 +95,15 @@
         This election is ad free. Thanks for your support!
     </div>
     {% endif %}
-  {% else %}
-    {% if election_active == "ENDED" %}
-      <p>This election has ended.</p>
-      {% if winners.length == 1 %}
-        <p>{{ winners.name }} won!</p>
-      {% else %}
-        <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-      {% endif %}
+  {% elif election_active == "ENDED" %}
+    <p>This election has ended.</p>
+    {% if winners.length == 1 %}
+      <p>{{ winners.name }} won!</p>
     {% else %}
-      <div class="countdown">This election will start in: <div id="countdown"></div></div>
+      <p>The following candidates tied: {% for winner in winners %}{{ winner.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endif %}
+  {% else %}
+    <p>This election has not started yet.</p>
   {% endif %}
   <div id="charts_div" data-tech-name="Google Chart Tools" data-tech-url="static/javascript/view.js#5" style="margin-top: 10px">
     <div class="box flex_column_item">

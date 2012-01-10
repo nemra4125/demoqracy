@@ -1,7 +1,7 @@
 /* jQuery Countdown styles 1.5.11. */
 .hasCountdown {
-	border: 1px solid #ccc;
-	background-color: #eee;
+	border: 1px solid #B09D8D;
+	background-color: #CAEEFC;
 }
 .countdown_rtl {
 	direction: rtl;
@@ -48,4 +48,5 @@
 .countdown_descr {
 	display: block;
 	width: 100%;
+  margin-top: 50px;
 }

@@ -348,7 +348,9 @@ img.intext {
   z-index: 2;
 }
 
-.countdown {
-  margin: 15px;
-  width: 40%;
+#countdown {
+  position: absolute;
+  right: 7px;
+  margin-top: -80px;
+  width: 200px;
 }
