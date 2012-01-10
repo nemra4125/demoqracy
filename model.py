@@ -67,6 +67,7 @@ class Election(db.Model):
     history = [vote.parent().name for vote in query]
     return len(history), json.dumps(history)
 
+
 class Candidate(db.Model):
   name = db.StringProperty(required=True)
 
@@ -79,12 +80,3 @@ class Vote(db.Model):
   voter = db.StringProperty(required=True)
   election = db.StringProperty(required=True)
   vote_time = db.DateTimeProperty(auto_now_add=True)
-
-  def RegisterVoteTransaction(self):
-    election = self.parent().parent()
-    if election.HasAlreadyVoted(self.voter):
-      raise db.TransactionFailedError("You've already voted in this election.")
-    self.put()
-
-  def RegisterVote(self):
-    db.run_in_transaction(self.RegisterVoteTransaction)
