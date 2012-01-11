@@ -18,7 +18,7 @@
 
       // Validate
       var errors = [];
-      if (end_ts < start_ts) {
+      if (end_ts != 0 && end_ts < start_ts) {
         errors.push("End date cannot come before start date");
       }
       if ($("#title_field").val() == "") {

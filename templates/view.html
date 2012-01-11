@@ -20,9 +20,11 @@
 
     var electionHistory = {{ history|safe }};
     var candidates = {{ candidates|safe }};
+    var countdownTimerText = 'Polls Open';
 
     {% if election_active == "ACTIVE" %}
       var electionId = '{{ election_id }}';
+      countdownTimerText = 'Polls Close';
     {% endif %}
 
     {% if countdown_time > 0 %}
