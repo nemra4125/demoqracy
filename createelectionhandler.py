@@ -51,5 +51,10 @@ class CreateElectionHandler(BaseHandler):
                          election_title=election.title,
                          election_id=election.key().id())
     if election.end:
-      taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
-                    eta=election.end)
+      try:
+        taskqueue.add(url="/elections/%d/notify_owner" % election.key().id(),
+                      eta=election.end)
+      except taskqueue.InvalidTaskError:
+        # This is thrown when the task is more than 30 days in the future.
+        # Not much we can do here--email notifications won't be sent.
+        pass
