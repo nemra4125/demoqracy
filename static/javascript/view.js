@@ -112,7 +112,7 @@
     if (window.countdownTime != null) {
       $('#countdown').countdown({
         until: new Date(window.countdownTime),
-        description: "Election Countdown",
+        description: window.countdownTimerText,
         onExpiry: function() {
           window.location.reload(true);
         }
