@@ -1,6 +1,7 @@
 from datetime import datetime
 from google.appengine.api import users
 from google.appengine.ext import db
+import constants
 import hashlib
 import json
 
@@ -40,10 +41,10 @@ class Election(db.Model):
   def CheckStartEndTime(self):
     now = datetime.now()
     if self.start is not None and self.start >= now:
-      return "NOT_STARTED"
+      return constants.NOT_STARTED
     elif self.end is not None and self.end <= now:
-      return "ENDED"
-    return "ACTIVE"
+      return constants.ENDED
+    return constants.ACTIVE
 
   def HasAlreadyVoted(self, voter):
     voter_id = voter
