@@ -30,4 +30,4 @@ application = webapp2.WSGIApplication([
     ('/elections/(\d+)/generate_channel_token', GenerateChannelTokenHandler),
     ('/elections/(\d+)/notify_owner', NotifyOwnerHandler),
     ('/(\d+)/(\d+)/vote', VoteHandler),
-], debug=True)
+], debug=False)

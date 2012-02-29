@@ -2,6 +2,7 @@ import jwt
 import time
 
 from basehandler import BaseHandler
+import constants
 from model import Election
 from sellerinfo import SELLER_ID
 from sellerinfo import SELLER_SECRET
@@ -29,9 +30,9 @@ class ViewElectionHandler(BaseHandler):
     item_token = jwt.encode(basic_jwt_info, SELLER_SECRET)
     election_active = election.CheckStartEndTime()
     countdown_time = 0
-    if election_active == "NOT_STARTED" and election.start:
+    if election_active == constants.NOT_STARTED and election.start:
       countdown_time = int(time.mktime(election.start.timetuple()))
-    elif election_active == "ACTIVE" and election.end:
+    elif election_active == constants.ACTIVE and election.end:
       countdown_time = int(time.mktime(election.end.timetuple()))
     vote_count, history = election.GetElectionHistory()
     candidates = election.GetCandidateNamesAsJson()

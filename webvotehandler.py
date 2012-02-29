@@ -1,5 +1,6 @@
 from basehandler import BaseHandler
 from channelapihelper import ChannelApiHelper
+import constants
 from google.appengine.api import users
 from model import Candidate, Election, Vote
 from webapp2_extras.appengine.users import login_required
@@ -17,10 +18,10 @@ class WebVoteHandler(BaseHandler):
     # on a poorly named method that returns strings representing the election
     # state.
     election_active_state = election.CheckStartEndTime()
-    if election_active_state == "NOT_STARTED":
+    if election_active_state == constants.NOT_STARTED:
       message = "This election has not started yet."
       canvote = False
-    elif election_active_state == "ENDED":
+    elif election_active_state == constants.ENDED:
       message = "This election has ended."
       canvote = False
 
@@ -51,9 +52,9 @@ class WebVoteHandler(BaseHandler):
     if election.HasAlreadyVoted(current_user):
       raise HTTPUnauthorized("You've already voted in this election.")
     election_active_state = election.CheckStartEndTime()
-    if election_active_state == "NOT_STARTED":
+    if election_active_state == constants.NOT_STARTED:
       raise HTTPBadRequest("This election has not started yet.")
-    elif election_active_state == "ENDED":
+    elif election_active_state == constants.ENDED:
       raise HTTPBadRequest("This election has ended.")
     candidate_id = self.request.get("candidate")
     if candidate_id is None:

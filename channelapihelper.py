@@ -36,6 +36,7 @@ from google.appengine.api import channel, memcache, namespace_manager
 from google.appengine.ext import db
 
 
+DATASTORE_NAMESPACE = "channelapihelper"
 # This corresponds to the current lifetime of a given channel connection.
 CHANNEL_LIFETIME_HOURS = 2
 CHANNEL_LIFETIME_SECONDS = CHANNEL_LIFETIME_HOURS * 60 * 60
@@ -63,7 +64,7 @@ def customnamespace(original_method):
   def wrapped_method(*args, **kwargs):
     original_namespace = namespace_manager.get_namespace()
     try:
-      namespace_manager.set_namespace("channelapihelper")
+      namespace_manager.set_namespace(DATASTORE_NAMESPACE)
       return original_method(*args, **kwargs)
     finally:
       namespace_manager.set_namespace(original_namespace)
