@@ -28,8 +28,6 @@ memcache. Custom namespaces are used to prevent any collisions with existing
 datastore or memcache entries.
 """
 
-__author__ = 'jeffy@google.com (Jeffrey Posnick)'
-
 from datetime import datetime, timedelta
 from uuid import uuid4
 from google.appengine.api import channel, memcache, namespace_manager
