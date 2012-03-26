@@ -4,9 +4,11 @@ import time
 from basehandler import BaseHandler
 import constants
 from model import Election
-from sellerinfo import SELLER_ID
-from sellerinfo import SELLER_SECRET
 from webob.exc import HTTPBadRequest
+try:
+  import custom_configuration as configuration
+except ImportError:
+  import configuration
 
 class ViewElectionHandler(BaseHandler):
   def get(self, election_id):
@@ -21,13 +23,13 @@ class ViewElectionHandler(BaseHandler):
                     "name": "Go Ads Free",
                     "price": "0.99",
                     "description": "Go ads-free for only $0.99"}
-    basic_jwt_info = {"iss": SELLER_ID,
+    basic_jwt_info = {"iss": configuration.SELLER_ID,
                       "aud": "Google",
                       "typ": "google/payments/inapp/item/v1",
                       "iat": now,
                       "exp": now_plus_one,
                       "request": request_info}
-    item_token = jwt.encode(basic_jwt_info, SELLER_SECRET)
+    item_token = jwt.encode(basic_jwt_info, configuration.SELLER_SECRET)
     election_active = election.CheckStartEndTime()
     countdown_time = 0
     if election_active == constants.NOT_STARTED and election.start:
