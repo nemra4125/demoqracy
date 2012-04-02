@@ -15,7 +15,7 @@ limitations under the License.
 ******************************************************************************/
 
 (function() {
-  var TECH_URL_BASE = 'https://code.google.com/a/google.com/p/demoqracy/source/browse/';
+  var TECH_URL_BASE = 'https://code.google.com/p/demoqracy/source/browse/';
 
   function bindTechInfoHandlers() {
     $('#toggle-tech').click(function() {
